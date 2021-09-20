@@ -1,0 +1,24 @@
+{
+  "name": "edward",
+  "version": "0.1.0",
+  "description": "An open-sourced music bot for Discord",
+  "main": "src/index.js",
+  "repository": "https://github.com/Dannnington/edward.git",
+  "author": "Daniel Hyders <git@bean.codes>",
+  "license": "GPL-3.0-or-later",
+  "private": false,
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "@keyv/mongo": "^1.1.0",
+    "@keyv/redis": "^2.1.2",
+    "chalk": "^4.1.2",
+    "discord-api-types": "^0.23.1",
+    "discord.js-light": "^4.1.5",
+    "keyv": "^4.0.3",
+    "lavaclient": "^4.0.3"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  }
+}
