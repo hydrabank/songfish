@@ -15,8 +15,10 @@
     "chalk": "^4.1.2",
     "discord-api-types": "^0.23.1",
     "discord.js-light": "^4.1.5",
+    "duration-pretty": "^0.1.1",
     "keyv": "^4.0.3",
-    "lavaclient": "^4.0.3"
+    "lavaclient": "^4.0.3",
+    "string-progress": "^1.8.9"
   },
   "scripts": {
     "start": "node src/index.js"

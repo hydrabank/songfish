@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js-light");
 
 module.exports = {
     metadata: new SlashCommandBuilder()
@@ -13,7 +13,7 @@ module.exports = {
         };
 
         if (interaction.clientUser.voice.channelId === null || interaction.clientUser.voice.channelId === undefined) {
-            return interaction.editReply("I am not currently playing audio in a voice channel!");
+            return interaction.editReply("I am not currently in a voice channel!");
         };
         
         if (interaction.clientUser.voice.channelId !== interaction.member.voice.channelId) {

@@ -74,7 +74,7 @@ for (const f of cmdDir) {
 async function postCommands() {
     const api = new API.REST({ version: "9" }).setToken(config.discord.clientToken);
 
-    await api.put(Routes.applicationGuildCommands(config.discord.clientID, "667606392999247892"), { body: cmdMetadata });
+    await api.put(Routes.applicationGuildCommands(config.discord.clientID, "798587458107342858"), { body: cmdMetadata });
 
     return true;
 };
