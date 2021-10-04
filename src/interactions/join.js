@@ -17,8 +17,10 @@ module.exports = {
         };
 
         try { 
-            await client.lavalink.createPlayer(interaction.guild.id)
-                .connect(interaction.member.voice.channelId);
+            let player;
+            if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
+            else player = await client.lavalink.getPlayer(interaction.guild.id);
+                player.connect(interaction.member.voice.channelId);
 
                 await interaction.guild.me.voice.setDeaf(true);
         } catch (e) {
@@ -26,6 +28,6 @@ module.exports = {
             return interaction.editReply(`An exception occurred whilst attempting to connect the bot. Try again later.`);
         };
 
-        return interaction.editReply(`☑️ Connected to <#${interaction.member.voice.channel.id}>.`);
+        return interaction.editReply(`☑️ Connected to <#${interaction.member.voice.channelId}>.`);
     }
 };

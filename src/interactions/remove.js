@@ -1,37 +1,36 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js-light");
-const { LoopType } = require("@lavaclient/queue/dist/Queue");
 
 module.exports = {
     metadata: new SlashCommandBuilder()
-        .setName("clear")
-        .setDescription("Clear the queue. This does not stop the current song."),
+        .setName("remove")
+        .setDescription("Remove an audio from the queue.")
+        .addNumberOption(o => o.setName("number").setDescription("The position of the audio in the queue").setRequired(true)),
     run: async (client, interaction) => {
         await interaction.deferReply();
+
+        const num = interaction.options.getNumber("number");
+
         let err;
-        if (interaction.member.voice.channelId === null || interaction.member.voice.channelId === undefined) {
-            return interaction.editReply("You must be in a voice channel in order to use this command.");
-        };
 
         if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined) {
             return interaction.editReply("I am not currently playing audio in a voice channel!");
-        };
-        
-        if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
-            return interaction.editReply("I am not currently playing audio in the voice channel that you are in!");
         };
 
         try { 
             let player;
             if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
             else player = await client.lavalink.getPlayer(interaction.guild.id);
-            await player.queue.setLoop(LoopType.None);
-            player.queue.tracks = [];
+
+            if (player.queue.tracks.length === 0) return interaction.editReply("There are no audios in the queue!");
+            if (num > player.queue.tracks.length) return interaction.editReply("The audio that you provided does not exist in the queue!");
+            if (num <= 0) return interaction.editReply("The audio that you provided does not exist in the queue!");
+
+            await player.queue.remove(num - 1);
+            return interaction.editReply(`Removed audio #${num} from the queue.`);
         } catch (e) {
             err = true;
-            return interaction.editReply(`An exception occurred whilst attempting to clear the queue. Try again later.`);
+            return interaction.editReply(`An exception occurred whilst attempting to remove audio #${num}. Try again later.`);
         };
-
-        return interaction.editReply("🗑️ Removed all songs from the queue");
     }
 };

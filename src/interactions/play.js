@@ -57,7 +57,7 @@ module.exports = {
                 const player = await client.lavalink.createPlayer(interaction.guild.id)
                 await interaction.guild.me.voice.setDeaf(true);
 
-                if (!player.connected || !interaction.guild.me.voice.channelId) player.connect(interaction.member.voice.channelId);
+                if (!interaction.guild.me.voice.channelId) player.connect(interaction.member.voice.channelId);
     
                 await player.queue.add(results);
     
@@ -83,11 +83,19 @@ module.exports = {
             meta.name = track.info.title;
 
             try {
-                const player = await client.lavalink.createPlayer(interaction.guild.id);
-                await interaction.guild.me.voice.setDeaf(true);
-    
-                if (!player.connected) player.connect(interaction.member.voice.channelId);
-    
+                let player;
+                if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
+                else player = await client.lavalink.getPlayer(interaction.guild.id);
+                
+                if (!interaction.guild.me.voice.channelId) {
+                    player.connect(interaction.member.voice.channelId);
+                    await interaction.guild.me.voice.setDeaf(true);
+                };
+                if (interaction.guild.me.voice.channelId && !player.connected) {
+                    player.connect(interaction.member.voice.channelId);
+                    await interaction.guild.me.voice.setDeaf(true);
+                };
+
                 await player.queue.add([ track ]);
     
                 if (!player.playing) {

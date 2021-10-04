@@ -21,8 +21,12 @@ module.exports = {
         };
 
         try { 
-            await client.lavalink.createPlayer(interaction.guild.id)
-                .disconnect();
+            let player;
+            if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
+            else player = await client.lavalink.getPlayer(interaction.guild.id);
+            player.disconnect();
+            
+            await client.lavalink.destroyPlayer(interaction.guild.id);
         } catch (e) {
             err = true;
             return interaction.editReply(`An exception occurred whilst attempting to disconnect the bot. Try again later.`);
