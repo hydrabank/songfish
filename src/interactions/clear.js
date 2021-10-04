@@ -1,10 +1,11 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js-light");
+const { LoopType } = require("@lavaclient/queue/dist/Queue");
 
 module.exports = {
     metadata: new SlashCommandBuilder()
-        .setName("skip")
-        .setDescription("Skip the audio that is currently playing."),
+        .setName("clear")
+        .setDescription("Clear the queue. This does not stop the current song."),
     run: async (client, interaction) => {
         await interaction.deferReply();
         let err;
@@ -22,22 +23,13 @@ module.exports = {
 
         try { 
             const player = await client.lavalink.createPlayer(interaction.guild.id);
-            if (!player.track) return interaction.editReply("There isn't an audio playing right now!");
-            if (player.queue.tracks.length <= 0) {
-                player.queue.tracks = [];
-                await player.queue.next();
-                await player.pause();
-                await player.disconnect();
-                await player.connect(interaction.member.voice.channelId);
-                return interaction.editReply("There are no more audios in the queue. Add more to keep the bot in the channel!");
-            };
-
-            player.queue.next();
+            await player.queue.setLoop(LoopType.None);
+            player.queue.tracks = [];
         } catch (e) {
             err = true;
-            return interaction.editReply(`An exception occurred whilst attempting to skip the song. Try again later.`);
+            return interaction.editReply(`An exception occurred whilst attempting to clear the queue. Try again later.`);
         };
 
-        return interaction.editReply("⏭️ Skipped the song.");
+        return interaction.editReply("🗑️ Removed all songs from the queue");
     }
 };

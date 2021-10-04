@@ -1,12 +1,23 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js-light");
+const { LoopType } = require("@lavaclient/queue/dist/Queue");
 
 module.exports = {
     metadata: new SlashCommandBuilder()
-        .setName("skip")
-        .setDescription("Skip the audio that is currently playing."),
+        .setName("loop")
+        .setDescription("Loop the audio that is currently playing, or loop the queue.")
+        .addStringOption(o =>
+            o.setName("mode")
+                .setDescription("The loop mode")
+                .setRequired(true)
+                .addChoice("Queue", "Queue")
+                .addChoice("Audio", "Song")
+                .addChoice("Disable", "None")),
     run: async (client, interaction) => {
         await interaction.deferReply();
+
+        const mode = interaction.options.getString("mode");
+
         let err;
         if (interaction.member.voice.channelId === null || interaction.member.voice.channelId === undefined) {
             return interaction.editReply("You must be in a voice channel in order to use this command.");
@@ -23,21 +34,14 @@ module.exports = {
         try { 
             const player = await client.lavalink.createPlayer(interaction.guild.id);
             if (!player.track) return interaction.editReply("There isn't an audio playing right now!");
-            if (player.queue.tracks.length <= 0) {
-                player.queue.tracks = [];
-                await player.queue.next();
-                await player.pause();
-                await player.disconnect();
-                await player.connect(interaction.member.voice.channelId);
-                return interaction.editReply("There are no more audios in the queue. Add more to keep the bot in the channel!");
-            };
-
-            player.queue.next();
+            await player.queue.setLoop(LoopType[mode]);
         } catch (e) {
             err = true;
-            return interaction.editReply(`An exception occurred whilst attempting to skip the song. Try again later.`);
+            return interaction.editReply(`An exception occurred whilst attempting to loop the audio. Try again later.`);
         };
 
-        return interaction.editReply("⏭️ Skipped the song.");
+        if (mode === "Queue") return interaction.editReply("🔁 Songfish is now playing in queue-loop mode.");
+        if (mode === "Song") return interaction.editReply("🔂 Songfish is now playing in single-loop mode.");
+        if (mode === "None") return interaction.editReply("➡️ Songfish is now playing in queue mode.");
     }
 };

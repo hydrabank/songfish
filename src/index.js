@@ -21,9 +21,19 @@ const fs = require("fs");
 const path = require("path");
 const { Client, Intents, MessageEmbed, Options } = require("discord.js-light");
 const { Routes } = require("discord-api-types/v9"); 
-require("@lavaclient/queue/register");
 const { Cluster } = require("lavaclient");
+const { load } = require("@lavaclient/spotify");
 
+require("@lavaclient/queue/register");
+
+load({
+    client: {
+        id: config.spotify.client.id,
+        secret: config.spotify.client.secret
+    },
+    autoResolveYoutubeTracks: config.spotify.autoResolveYoutubeTracks,
+    loaders: config.spotify.loaders
+});
 
 const client = new Client({ intents: [Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
     makeCache: Options.cacheWithLimits({
@@ -54,7 +64,7 @@ client.db = new Keyv(config.databases.url);
 client.db.on("error", (e) => console.error(`${chalk.red(`DB ERR `)} || ${e}`));
 client.commands = new Map();
 
-
+client.config = config;
 
 const lavalink = new Cluster({
     nodes: config.lavalink.nodes,
@@ -92,6 +102,9 @@ client.on("ready", function () {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
     
+    const authorized = await client.db.get(`${interaction.guild.id}.authorized`);
+    if (!authorized && interaction.commandName !== "invitemanager") return interaction.reply("This server is not authorized to use Songfish. Please apply for access at https://songfish.danny.works.");
+
     let cmdErr;
     interaction.clientUser = await interaction.guild.members.fetch(client.user.id).catch(() => { cmdErr = true; });
 
@@ -114,13 +127,6 @@ client.on("interactionCreate", async (interaction) => {
         }
     } catch (e) {
         console.error(chalk.red(`INTERACTION ERROR || ` + e));
-        try {
-            interaction.reply(`An error occurred whilst running this command.`).catch(e => {
-                interaction.editReply(`An error occurred whilst running this command.`);
-            });
-        } catch (e) {
-            interaction.editReply(`An error occurred whilst running this command.`);
-        };
     };
 });
 

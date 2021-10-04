@@ -24,6 +24,6 @@ module.exports = {
             return interaction.editReply(`An exception occurred whilst attempting to connect the bot. Try again later.`);
         };
 
-        return interaction.editReply("☑️ Connected to your voice channel.");
+        return interaction.editReply(`☑️ Connected to <#${interaction.member.voice.channel.id}>.`);
     }
 };
