@@ -9,3 +9,4 @@ An open-sourced music-focused bot for Discord. Its' public instance is an invite
 - [ ] Loop functionality
 - [ ] List queue command  
 - [ ] Effects
+- [ ] Invite-only functionality
