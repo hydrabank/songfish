@@ -95,7 +95,7 @@ client.on("interactionCreate", async (interaction) => {
     let cmdErr;
     interaction.clientUser = await interaction.guild.members.fetch(client.user.id).catch(() => { cmdErr = true; });
 
-    if (cmdErr) return interaction.reply("Edward isn't in the server as a bot! Please reinvite it to this server as both a slash command provider and a bot.");
+    if (cmdErr) return interaction.reply("Songfish isn't in the server as a bot! Please reinvite it to this server as both a slash command provider and a bot.");
 
     let cmdUsage = await client.db.get(`usage_${interaction.commandName}`);
     if (!Array.isArray(cmdUsage)) cmdUsage = [];

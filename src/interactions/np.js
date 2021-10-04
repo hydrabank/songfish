@@ -39,7 +39,7 @@ module.exports = {
                 new MessageEmbed()
                     .setAuthor(`Currently playing audio`, client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
                     .setColor("RANDOM")
-                    .setFooter(`Edward Music`, client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
+                    .setFooter(`Songfish`, client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
                     .setTimestamp()
                     .setDescription(`[${track.title}](${track.uri})\n\n${createBar(track.length, player.position, { size: 17 })} (${track.paused ? "🔴" : "🟢"})\n\n${point}/${total}`)
             ] });

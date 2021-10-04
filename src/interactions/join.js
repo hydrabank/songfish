@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js-light");
 module.exports = {
     metadata: new SlashCommandBuilder()
         .setName("join")
-        .setDescription("Have Edward join the voice channel that you are in."),
+        .setDescription("Have Songfish join the voice channel that you are in."),
     run: async (client, interaction) => {
         await interaction.deferReply();
         let err;

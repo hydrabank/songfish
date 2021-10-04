@@ -1,9 +1,9 @@
 {
-  "name": "edward",
+  "name": "songfish",
   "version": "0.1.0",
   "description": "An open-sourced music bot for Discord",
   "main": "src/index.js",
-  "repository": "https://github.com/Dannnington/edward.git",
+  "repository": "https://github.com/Dannnington/songfish.git",
   "author": "Daniel Hyders <git@bean.codes>",
   "license": "GPL-3.0-or-later",
   "private": false,
