@@ -15,8 +15,8 @@ module.exports = {
             return interaction.editReply("You must be in a voice channel in order to use this command.");
         };
 
-        if (interaction.clientUser.voice.channelId !== null && interaction.clientUser.voice.channelId !== undefined) {
-            if (interaction.clientUser.voice.channelId !== interaction.member.voice.channelId) {
+        if (interaction.guild.me.voice.channelId !== null && interaction.guild.me.voice.channelId !== undefined) {
+            if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
                 return interaction.editReply("You must be in the same voice channel as the bot in order to play audio!");
             };
         };
@@ -55,8 +55,9 @@ module.exports = {
 
             try {
                 const player = await client.lavalink.createPlayer(interaction.guild.id)
-    
-                if (!player.connected || !interaction.clientUser.voice.channelId) player.connect(interaction.member.voice.channelId);
+                await interaction.guild.me.voice.setDeaf(true);
+
+                if (!player.connected || !interaction.guild.me.voice.channelId) player.connect(interaction.member.voice.channelId);
     
                 await player.queue.add(results);
     
@@ -82,7 +83,8 @@ module.exports = {
             meta.name = track.info.title;
 
             try {
-                const player = await client.lavalink.createPlayer(interaction.guild.id)
+                const player = await client.lavalink.createPlayer(interaction.guild.id);
+                await interaction.guild.me.voice.setDeaf(true);
     
                 if (!player.connected) player.connect(interaction.member.voice.channelId);
     

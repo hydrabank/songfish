@@ -13,11 +13,11 @@ module.exports = {
             return interaction.editReply("You must be in a voice channel in order to use this command.");
         };
 
-        if (interaction.clientUser.voice.channelId === null || interaction.clientUser.voice.channelId === undefined) {
+        if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined) {
             return interaction.editReply("I am not currently playing audio in a voice channel!");
         };
         
-        if (interaction.clientUser.voice.channelId !== interaction.member.voice.channelId) {
+        if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
             return interaction.editReply("I am not currently playing audio in the voice channel that you are in!");
         };
 

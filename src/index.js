@@ -26,7 +26,7 @@ const { load } = require("@lavaclient/spotify");
 
 require("@lavaclient/queue/register");
 
-load({
+if (config.spotify.client.secret) load({
     client: {
         id: config.spotify.client.id,
         secret: config.spotify.client.secret
@@ -106,7 +106,7 @@ client.on("interactionCreate", async (interaction) => {
     if (!authorized && interaction.commandName !== "invitemanager") return interaction.reply("This server is not authorized to use Songfish. Please apply for access at https://songfish.danny.works.");
 
     let cmdErr;
-    interaction.clientUser = await interaction.guild.members.fetch(client.user.id).catch(() => { cmdErr = true; });
+    interaction.guild.me = await interaction.guild.members.fetch(client.user.id).catch(() => { cmdErr = true; });
 
     if (cmdErr) return interaction.reply("Songfish isn't in the server as a bot! Please reinvite it to this server as both a slash command provider and a bot.");
 

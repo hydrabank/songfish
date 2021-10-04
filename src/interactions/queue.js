@@ -13,7 +13,7 @@ module.exports = {
 
         let err;
 
-        if (interaction.clientUser.voice.channelId === null || interaction.clientUser.voice.channelId === undefined) {
+        if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined) {
             return interaction.editReply("I am not currently playing audio in a voice channel!");
         };
 
