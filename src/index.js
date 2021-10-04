@@ -21,6 +21,7 @@ const fs = require("fs");
 const path = require("path");
 const { Client, Intents, MessageEmbed, Options } = require("discord.js-light");
 const { Routes } = require("discord-api-types/v9"); 
+require("@lavaclient/queue/register");
 const { Cluster } = require("lavaclient");
 
 
@@ -53,6 +54,8 @@ client.db = new Keyv(config.databases.url);
 client.db.on("error", (e) => console.error(`${chalk.red(`DB ERR `)} || ${e}`));
 client.commands = new Map();
 
+
+
 const lavalink = new Cluster({
     nodes: config.lavalink.nodes,
     sendGatewayPayload: (id, payload) => client.guilds.cache.get(id).shard.send(payload),
@@ -74,7 +77,7 @@ for (const f of cmdDir) {
 async function postCommands() {
     const api = new API.REST({ version: "9" }).setToken(config.discord.clientToken);
 
-    await api.put(Routes.applicationGuildCommands(config.discord.clientID, "798587458107342858"), { body: cmdMetadata });
+    await api.put(Routes.applicationGuildCommands(config.discord.clientID, "893746967098818560"), { body: cmdMetadata });
 
     return true;
 };
