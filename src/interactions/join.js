@@ -16,14 +16,17 @@ module.exports = {
             return interaction.editReply("I am currently in a voice channel. Try again later.");
         };
 
+        const vcType = interaction.guild.channels.cache.get(interaction.member.voice.channelId).type;
+
         try { 
-            let player;
-            if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
-            else player = await client.lavalink.getPlayer(interaction.guild.id);
-                player.connect(interaction.member.voice.channelId);
+                const player = await client.lavalink.manager.fetch(interaction);
+                await player.connect(interaction.member.voice.channelId);
+
+                if (vcType === "GUILD_STAGE_VOICE" && interaction.guild.me.voice.suppress) await interaction.guild.me.voice.setSuppressed(false);
 
                 await interaction.guild.me.voice.setDeaf(true);
         } catch (e) {
+            if (e.code === 50013 && e.httpStatus === 403) return interaction.editReply("I need the following permissions to join stages: `Manage Channels`, `Mute Members`, `Move Members`. Otherwise, I cannot join stages.");
             err = true;
             return interaction.editReply(`An exception occurred whilst attempting to connect the bot. Try again later.`);
         };

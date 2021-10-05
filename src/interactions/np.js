@@ -15,9 +15,7 @@ module.exports = {
         };
 
         try { 
-            let player;
-            if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
-            else player = await client.lavalink.getPlayer(interaction.guild.id);
+            const player = await client.lavalink.manager.fetch(interaction);
 
             if (player.playing === false) return interaction.editReply("I am not currently playing audio in a voice channel!");
 
@@ -33,17 +31,19 @@ module.exports = {
 
             if (!player.track) return interaction.editReply("I'm currently not playing anything!");
 
-            return interaction.editReply({ embeds: [
-                new MessageEmbed()
-                    .setAuthor(`Currently playing audio`, client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
-                    .setColor("RANDOM")
-                    .setFooter(`Songfish • Player: P-${player.node.conn.info.port}`, client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
-                    .setTimestamp()
-                    .setDescription(`[${track.title}](${track.uri})\n\n${player.paused ? "⏸️" : "▶️"} ${createBar(track.length, player.position, { size: 17 })}\n\n${point}/${total}`)
-            ] });
+            const embed = new MessageEmbed()
+            .setAuthor(`Currently playing audio`, client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
+            .setColor("RANDOM")
+            .setFooter(`Songfish • Player: P-${player.node.conn.info.port}`, client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
+            .setTimestamp();
+            
+            if (track.isStream) embed.setDescription(`[${track.title}](${track.uri})\n\n${player.paused ? "⏸️" : "▶️"} ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n**Live** (listening for ${point})`);
+            else embed.setDescription(`[${track.title}](${track.uri})\n\n${player.paused ? "⏸️" : "▶️"} ${createBar(track.length, player.position, { size: 17 })}\n\n${point}/${total}`);
+
+            return interaction.editReply({ embeds: [ embed ] });
         } catch (e) {
             err = true;
-            return interaction.editReply(`Oops! Songfish fell into a snag. Songfish can't read metadata about certain songs due to copyright or an illegal character being present. Apologies for the inconvenience.`);
+            return interaction.editReply(`Oops! Songfish fell into a snag. Songfish can't read metadata about certain audio due to copyright or an illegal character being present. Apologies for the inconvenience.`);
         };
     }
 };

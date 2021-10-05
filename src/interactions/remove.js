@@ -18,9 +18,7 @@ module.exports = {
         };
 
         try { 
-            let player;
-            if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
-            else player = await client.lavalink.getPlayer(interaction.guild.id);
+            const player = await client.lavalink.manager.fetch(interaction);
 
             if (player.queue.tracks.length === 0) return interaction.editReply("There are no audios in the queue!");
             if (num > player.queue.tracks.length) return interaction.editReply("The audio that you provided does not exist in the queue!");

@@ -11,3 +11,6 @@ An open-sourced music-focused bot for Discord. Its' public instance is an invite
 - [ ] DJ permissions
 - [ ] Effects
 - [x] Invite-only functionality
+- [x] Playlists
+- [x] Streams
+- [x] Stage channel support

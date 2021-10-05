@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js-light");
+const { MessageEmbed, Permissions } = require("discord.js-light");
 const { Song } = require("@lavaclient/queue/dist/Song");
 const { SpotifyItemType } = require("@lavaclient/spotify");
+
 module.exports = {
     metadata: new SlashCommandBuilder()
         .setName("play")
@@ -20,6 +21,8 @@ module.exports = {
                 return interaction.editReply("You must be in the same voice channel as the bot in order to play audio!");
             };
         };
+
+        const vcType = interaction.guild.channels.cache.get(interaction.member.voice.channelId).type;
 
         let results = [];
         let meta = {};
@@ -54,14 +57,18 @@ module.exports = {
             };
 
             try {
-                const player = await client.lavalink.createPlayer(interaction.guild.id)
-                
-                await interaction.guild.me.voice.setDeaf(true);
-                await player.pause();
-                await player.resume();
+                const player = await client.lavalink.manager.fetch(interaction);
 
-                if (!interaction.guild.me.voice.channelId) player.connect(interaction.member.voice.channelId);
+                if (!interaction.guild.me.voice.channelId) {
+                    player.connect(interaction.member.voice.channelId);
+                    await interaction.guild.me.voice.setDeaf(true);
+                };
+                if (interaction.guild.me.voice.channelId && !player.connected) {
+                    player.connect(interaction.member.voice.channelId);
+                    await interaction.guild.me.voice.setDeaf(true);
+                };
     
+                if (vcType === "GUILD_STAGE_VOICE" && interaction.guild.me.voice.suppress) await interaction.guild.me.voice.setSuppressed(false);
                 await player.queue.add(results);
     
                 if (!player.playing) {
@@ -69,8 +76,8 @@ module.exports = {
                 };
     
                 await player.resume();
-                
             } catch (e) {
+                if (e.code === 50013 && e.httpStatus === 403) return interaction.editReply("I need the following permissions to join stages: `Manage Channels`, `Mute Members`, `Move Members`. Otherwise, I cannot join stages.");
                 err = true;
                 return interaction.editReply(`An exception occurred whilst attempting to play audio. Try again later.`);
             };
@@ -78,15 +85,20 @@ module.exports = {
         } else {
             const ytresults = await client.lavalink.rest.loadTracks(/^https?:\/\//.test(interaction.options.getString("audio")) ? interaction.options.getString("audio") : `ytsearch:${interaction.options.getString("audio")}`);
             if (ytresults.tracks.length <= 0) return interaction.editReply("🚫 No results were found.");
-            
-            const track = ytresults.tracks[0];
-            
-            meta.name = track.info.title;
+            if (ytresults.loadType === "PLAYLIST_LOADED") {
+                track = ytresults.tracks;
+                meta.playlist = ytresults.playlistInfo;
+                meta.playlist.length = track.length;
+                meta.type = "playlist";
+                meta.name = meta.playlist.name;
+            } else {
+                track = [ytresults.tracks[0]];
+                meta.type = "track";
+                meta.name = track[0].info.title;
+            };
 
             try {
-                let player;
-                if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
-                else player = await client.lavalink.getPlayer(interaction.guild.id);
+                const player = await client.lavalink.manager.fetch(interaction);
                 
                 if (!interaction.guild.me.voice.channelId) {
                     player.connect(interaction.member.voice.channelId);
@@ -96,24 +108,23 @@ module.exports = {
                     player.connect(interaction.member.voice.channelId);
                     await interaction.guild.me.voice.setDeaf(true);
                 };
-
-                await player.queue.add([ track ]);
+                
+                if (vcType === "GUILD_STAGE_VOICE" && interaction.guild.me.voice.suppress) await interaction.guild.me.voice.setSuppressed(false);
+                await player.queue.add(track);
     
                 if (!player.playing) {
                     await player.queue.start();
                 };
-    
-                if (player.paused) {
-                    await player.resume();
-                };
-                
             } catch (e) {
+                console.log(e)
+                if (e.code === 50013 && e.httpStatus === 403) return interaction.editReply("I need the following permissions to join stages: `Manage Channels`, `Mute Members`, `Move Members`. Otherwise, I cannot join stages.");
                 err = true;
                 return interaction.editReply(`An exception occurred whilst attempting to play audio. Try again later.`);
             };
         };
 
         if (err === true) return;
-        return interaction.editReply(`🎵  Added song: \`${meta.name}\``);
+        if (meta.type === "track") return interaction.editReply(`🎵  Added audio: \`${meta.name}\``);
+        if (meta.type === "playlist") return interaction.editReply(`🎵  Added **${meta.playlist.length}** songs from playlist \`${meta.name}\``);
     }
 };

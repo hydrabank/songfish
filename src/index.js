@@ -23,6 +23,7 @@ const { Client, Intents, MessageEmbed, Options } = require("discord.js-light");
 const { Routes } = require("discord-api-types/v9"); 
 const { Cluster } = require("lavaclient");
 const { load } = require("@lavaclient/spotify");
+const PlayerManager = require("./lib/PlayerManager");
 
 require("@lavaclient/queue/register");
 
@@ -40,7 +41,7 @@ const client = new Client({ intents: [Intents.FLAGS.DIRECT_MESSAGES, Intents.FLA
         ApplicationCommandManager: 0,
         BaseGuildEmojiManager: 0, 
         ChannelManager: 0, 
-        GuildChannelManager: 0, 
+        GuildChannelManager: Infinity, 
         GuildBanManager: 0,
         GuildInviteManager: 0, 
         GuildManager: Infinity, 
@@ -71,6 +72,8 @@ const lavalink = new Cluster({
     sendGatewayPayload: (id, payload) => client.guilds.cache.get(id).shard.send(payload),
 });
 
+lavalink.manager = new PlayerManager(client);
+
 client.ws.on("VOICE_STATE_UPDATE", (data) => client.lavalink.handleVoiceUpdate(data));
 client.ws.on("VOICE_SERVER_UPDATE", (data) => client.lavalink.handleVoiceUpdate(data));
 
@@ -87,12 +90,11 @@ for (const f of cmdDir) {
 async function postCommands() {
     const api = new API.REST({ version: "9" }).setToken(config.discord.clientToken);
     
-    if (config.testing === true) api.put(Routes.applicationGuildCommands(config.discord.clientID, "893746967098818560"), { body: cmdMetadata });
+    if (config.testing === true) api.put(Routes.applicationGuildCommands(config.discord.clientID, "895014174969708575"), { body: cmdMetadata });
     else await api.put(Routes.applicationCommands(config.discord.clientID), { body: cmdMetadata });
 
     return true;
 };
-
 client.on("ready", function () {
     let status = { type: "LISTENING", content: "music! 🎵" };
     if (config.discord.status.type) status.type = config.discord.status.type;
@@ -101,6 +103,7 @@ client.on("ready", function () {
     client.user.setActivity(status.content, { type: status.type });
     lavalink.connect(client.user.id);
     client.lavalink = lavalink;
+    
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -124,7 +127,7 @@ client.on("interactionCreate", async (interaction) => {
         if (isAsync) {
             client.commands.get(interaction.commandName).run(client, interaction).catch(e => {
                 console.error(chalk.red(`INTERACTION ERROR ` + "|| " + e));
-                interaction.reply(`An error occurred whilst running this command.`);
+                console.log(e.stack);
             });
         } else {
             client.commands.get(interaction.commandName).run(client, interaction);

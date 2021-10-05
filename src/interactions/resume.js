@@ -21,9 +21,7 @@ module.exports = {
         };
 
         try { 
-            let player;
-            if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
-            else player = await client.lavalink.getPlayer(interaction.guild.id);
+            const player = await client.lavalink.manager.fetch(interaction);
             
             if (!player.paused && player.playing) return interaction.editReply("An audio is already playing!");
             if (!player.track) return interaction.editReply("There isn't an audio playing right now!");

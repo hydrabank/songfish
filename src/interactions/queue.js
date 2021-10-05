@@ -16,9 +16,7 @@ module.exports = {
         };
 
         try { 
-            let player;
-            if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
-            else player = await client.lavalink.getPlayer(interaction.guild.id);
+            const player = await client.lavalink.manager.fetch(interaction);
             const queue = player.queue.tracks.slice(0, 5);
 
             const embed = new MessageEmbed()
