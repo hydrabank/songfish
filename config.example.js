@@ -1,7 +1,11 @@
 module.exports = {
     discord: {
         clientID: "ClientID", // The client ID of this Songfish instance
-        clientToken: "Token" // The Discord bot token for Songfish
+        clientToken: "Token", // The Discord bot token for Songfish
+        status: { // Setting either or both to null will set it to default
+            type: null, // The type of status prefix
+            content: null // The content of the status
+        }
     },
     databases: {
         url: "redis://127.0.0.1:27017/",

@@ -93,8 +93,11 @@ async function postCommands() {
 };
 
 client.on("ready", function () {
+    let status = { type: "LISTENING", content: "music! 🎵" };
+    if (config.discord.status.type) status.type = config.discord.status.type;
+    if (config.discord.status.content) status.content = config.discord.status.content;
     console.log(`${chalk.green("READY")} || ${client.user.tag} is ready (${new Date().toUTCString()})`);
-    client.user.setActivity("music! 🎵", { type: "LISTENING" });
+    client.user.setActivity(status.content, { type: status.type });
     lavalink.connect(client.user.id);
     client.lavalink = lavalink;
 });
