@@ -60,7 +60,7 @@ const client = new Client({ intents: [Intents.FLAGS.DIRECT_MESSAGES, Intents.FLA
     })
 });
 
-client.db = new Keyv(config.databases.url);
+client.db = new Keyv(config.databases.url, { namespace: config.databases.namespace });
 client.db.on("error", (e) => console.error(`${chalk.red(`DB ERR `)} || ${e}`));
 client.commands = new Map();
 
@@ -87,7 +87,7 @@ for (const f of cmdDir) {
 async function postCommands() {
     const api = new API.REST({ version: "9" }).setToken(config.discord.clientToken);
 
-    await api.put(Routes.applicationGuildCommands(config.discord.clientID, "893746967098818560"), { body: cmdMetadata });
+    await api.put(Routes.applicationCommands(config.discord.clientID), { body: cmdMetadata });
 
     return true;
 };

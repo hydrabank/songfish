@@ -34,6 +34,6 @@ module.exports = {
             return interaction.editReply(`An exception occurred whilst attempting to resume the audio. Try again later.`);
         };
 
-        return interaction.editReply("✅ Resumed the audio.");
+        return interaction.editReply("▶️ Resumed the audio.");
     }
 };

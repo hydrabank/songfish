@@ -5,7 +5,7 @@ const { SpotifyItemType } = require("@lavaclient/spotify");
 module.exports = {
     metadata: new SlashCommandBuilder()
         .setName("play")
-        .setDescription("Play audio. Supports YouTube.")
+        .setDescription("Add audio to the queue. Supports YouTube.")
         .addStringOption(o => o.setName("audio").setDescription("The playback URL or search term for the audio").setRequired(true)),
     run: async (client, interaction) => {
         await interaction.deferReply();

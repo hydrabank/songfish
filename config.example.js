@@ -4,11 +4,12 @@ module.exports = {
         clientToken: "Token" // The Discord bot token for Songfish
     },
     databases: {
-        url: "redis://127.0.0.1:27017/"
+        url: "redis://127.0.0.1:27017/",
         // Supports Mongo and Redis out of the box
         // Leaving it blank will use in-memory Keyv, however all data will clear after stopping Songfish.
         // Support for MySQL, Postgres, and many other databases are available. As long as it's supported by Keyv, you can use it.
         // Third party database adapters are unsupported, however, and are not guaranteed to work.
+        namespace: "songfish" // The Keyv namespace to use
     },
     lavalink: { 
         nodes: [

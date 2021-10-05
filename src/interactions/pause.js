@@ -32,6 +32,6 @@ module.exports = {
             return interaction.editReply(`An exception occurred whilst attempting to pause the song. Try again later.`);
         };
 
-        return interaction.editReply("⛔ Paused the song.");
+        return interaction.editReply("⏸️ Paused the audio.");
     }
 };
