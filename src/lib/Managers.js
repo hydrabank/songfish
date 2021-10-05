@@ -1,10 +1,13 @@
 class PlayerManager {
+    /**
+     * Manage Lavalink player connections and the cluster in general
+     * @param {object} client The Discord.js client instance
+     */
     constructor(client) {
         this.client = client;
     };
     /**
      * Fetch a player. If one doesn't exist, create it.
-     * @param {object} client The Discord.js client instance 
      * @param {object} interaction The interaction data 
      * @returns {object} The player
      */
@@ -51,4 +54,49 @@ class PlayerManager {
     };
 };
 
-module.exports = PlayerManager;
+class YouTubeManager {
+    /**
+     * Manage YouTube metadata, information, and statistics
+     * @param {object} client The Discord.js client instance 
+     */
+    constructor(client) {
+        this.client = client;
+    };
+
+    /**
+     * Fetch the YouTube thumbnail for a given video
+     * @param {string} videoURI The YouTube video URI 
+     */
+    getThumbnail(videoURI) {
+        // This class method was inspired by Mohamad Hamouday's answer to a question on Stack Overflow
+        // Link: https://stackoverflow.com/a/65431128 
+        // The code was modified to provide all sizes of video thumbnails
+
+        if (typeof videoURI !== "string") {
+            throw new TypeError(`type of videoURI expected to be string; actual type provided was ${typeof videoURI}`);
+        };
+
+        let id, thumbnail, result;
+
+        if (result = videoURI.match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/)) {
+            id = result.pop();
+        } else if (result = videoURI.match(/youtu.be\/(.{11})/)) {
+            id = result.pop();
+        };
+
+        if (id) {
+            thumbnail = {
+                small: `https://i.ytimg.com/vi/${id}/default.jpg`,
+                medium: `https://i.ytimg.com/vi/${id}/mqdefault.jpg`,
+                large: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+                maximum: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`
+            };
+        } else {
+            thumbnail = null;
+        };
+
+        return thumbnail;
+    };
+};
+
+module.exports = { PlayerManager, YouTubeManager };

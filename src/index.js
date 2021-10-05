@@ -23,7 +23,7 @@ const { Client, Intents, MessageEmbed, Options } = require("discord.js-light");
 const { Routes } = require("discord-api-types/v9"); 
 const { Cluster } = require("lavaclient");
 const { load } = require("@lavaclient/spotify");
-const PlayerManager = require("./lib/PlayerManager");
+const { PlayerManager, YouTubeManager } = require("./lib/Managers");
 
 require("@lavaclient/queue/register");
 
@@ -73,6 +73,7 @@ const lavalink = new Cluster({
 });
 
 lavalink.manager = new PlayerManager(client);
+lavalink.manager.youtube = new YouTubeManager(client);
 
 client.ws.on("VOICE_STATE_UPDATE", (data) => client.lavalink.handleVoiceUpdate(data));
 client.ws.on("VOICE_SERVER_UPDATE", (data) => client.lavalink.handleVoiceUpdate(data));
