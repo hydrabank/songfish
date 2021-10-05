@@ -3,12 +3,12 @@ const majorNodeV = parseInt(process.versions.node.split(".")[0].trim());
 const minorNodeV = parseInt(process.versions.node.split(".")[1].trim());
 
 if (majorNodeV < 16) {
-    console.log(chalk["red"].bold(`You are running Node.js version ${majorNodeV}.${minorNodeV}. The minimum Node.js version required to run this app is version 16.8. Please install a newer version of Node.`));
+    console.log(chalk["red"].bold(`You are running Node.js version ${majorNodeV}.${minorNodeV}. The minimum Node.js version required to run this app is version 16.6. Please install a newer version of Node.`));
     process.exit(1);
 } else {
     if (majorNodeV === 16) {
-        if (minorNodeV <= 8) {
-            console.log(chalk["red"].bold(`You are running Node.js version ${majorNodeV}.${minorNodeV}. The minimum Node.js version required to run this app is version 16.8. Please install a newer version of Node.`));
+        if (minorNodeV <= 5) {
+            console.log(chalk["red"].bold(`You are running Node.js version ${majorNodeV}.${minorNodeV}. The minimum Node.js version required to run this app is version 16.6. Please install a newer version of Node.`));
             process.exit(1);
         };
     }
