@@ -55,7 +55,10 @@ module.exports = {
 
             try {
                 const player = await client.lavalink.createPlayer(interaction.guild.id)
+                
                 await interaction.guild.me.voice.setDeaf(true);
+                await player.pause();
+                await player.resume();
 
                 if (!interaction.guild.me.voice.channelId) player.connect(interaction.member.voice.channelId);
     
@@ -65,9 +68,7 @@ module.exports = {
                     await player.queue.start();
                 };
     
-                if (player.paused) {
-                    await player.resume();
-                };
+                await player.resume();
                 
             } catch (e) {
                 err = true;

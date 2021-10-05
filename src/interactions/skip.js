@@ -27,11 +27,12 @@ module.exports = {
             if (!player.track) return interaction.editReply("There isn't an audio playing right now!");
             if (player.queue.tracks.length <= 0) {
                 player.queue.tracks = [];
+                player.queue.current = null;
                 await player.queue.next();
-                await player.pause();
+                await player.stop();
                 await player.disconnect();
                 await player.connect(interaction.member.voice.channelId);
-                return interaction.editReply("There are no more audios in the queue. Add more to keep the bot in the channel!");
+                return interaction.editReply("There are no more audios in the queue. Add more to keep the bot in the channel! (Note that your current song may still be in the queue after playing a new song. Make sure to skip the song. We're working on a fix for this.)");
             };
 
             player.queue.next();

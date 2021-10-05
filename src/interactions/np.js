@@ -9,28 +9,24 @@ module.exports = {
     run: async (client, interaction) => {
         await interaction.deferReply();
         let err;
-        if (interaction.member.voice.channelId === null || interaction.member.voice.channelId === undefined) {
-            return interaction.editReply("You must be in a voice channel in order to use this command.");
-        };
 
         if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined) {
             return interaction.editReply("I am not currently playing audio in a voice channel!");
-        };
-        
-        if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
-            return interaction.editReply("I am not currently playing audio in the voice channel that you are in!");
         };
 
         try { 
             let player;
             if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) player = await client.lavalink.createPlayer(interaction.guild.id);
             else player = await client.lavalink.getPlayer(interaction.guild.id);
-            const track = await client.lavalink.rest.decodeTrack(player.track);
 
+            if (player.playing === false) return interaction.editReply("I am not currently playing audio in a voice channel!");
+
+            const track = await client.lavalink.rest.decodeTrack(player.track);
 
             let point = duration(player.position, "milliseconds");
             if (player.position >= 3600000) point = point.format("HH:mm:ss");
             else point = point.format("mm:ss");
+
             let total = duration(track.length, "milliseconds");
             if (track.length >= 3600000) total = total.format("HH:mm:ss");
             else total = total.format("mm:ss");
@@ -47,7 +43,7 @@ module.exports = {
             ] });
         } catch (e) {
             err = true;
-            return interaction.editReply(`An exception occurred whilst attempting to get information about the song. Try again later.`);
+            return interaction.editReply(`Oops! Songfish fell into a snag. Songfish can't read metadata about certain songs due to copyright or an illegal character being present. Apologies for the inconvenience.`);
         };
     }
 };
