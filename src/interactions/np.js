@@ -50,6 +50,8 @@ module.exports = {
             return interaction.editReply({ embeds: [ embed ] });
         } catch (e) {
             err = true;
+            const chalk = require("chalk");
+            console.log(`${chalk.red("ERROR")} || Songfish was able to successfully handle an exception (${new Date().toUTCString()}) (COMMAND: NOW PLAYING). Here is a debug stack trace in the case that you'd like to see the error:\n${e.stack}`);
             return interaction.editReply(`Oops! Songfish fell into a snag. Songfish can't read metadata about certain audio due to copyright or an illegal character being present. Apologies for the inconvenience.`);
         };
     }

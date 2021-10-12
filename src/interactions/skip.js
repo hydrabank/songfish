@@ -42,6 +42,8 @@ module.exports = {
         } catch (e) {
             if (e.code === 50013 && e.httpStatus === 403) return interaction.editReply("I need the following permissions to join stages: `Manage Channels`, `Mute Members`, `Move Members`. Otherwise, I cannot join stages.");
             err = true;
+            const chalk = require("chalk");
+            console.log(`${chalk.red("ERROR")} || Songfish was able to successfully handle an exception (${new Date().toUTCString()}). Here is a debug stack trace in the case that you'd like to see the error:\n${e.stack}`);
             return interaction.editReply(`An exception occurred whilst attempting to skip the audio. Try again later.`);
         };
 

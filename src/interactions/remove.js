@@ -28,6 +28,8 @@ module.exports = {
             return interaction.editReply(`Removed audio #${num} from the queue.`);
         } catch (e) {
             err = true;
+            const chalk = require("chalk");
+            console.log(`${chalk.red("ERROR")} || Songfish was able to successfully handle an exception (${new Date().toUTCString()}). Here is a debug stack trace in the case that you'd like to see the error:\n${e.stack}`);
             return interaction.editReply(`An exception occurred whilst attempting to remove audio #${num}. Try again later.`);
         };
     }
