@@ -46,6 +46,10 @@ class PlayerManager {
                 });
             });
 
+            player.on("channelLeave", async function (c, reason, remote) {
+                await player.destroy();
+            });
+
         } else {
             player = await client.lavalink.getPlayer(interaction.guild.id);
         };
