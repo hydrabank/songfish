@@ -19,7 +19,7 @@ module.exports = {
 
             if (player.playing === false) return interaction.editReply("I am not currently playing audio in a voice channel!");
 
-            const track = await client.lavalink.rest.decodeTrack(player.track);
+            const track = player.queue.current;
             let thumbnail = client.lavalink.manager.youtube.getThumbnail(track.uri);
             if (thumbnail === null) thumbnail = {
                 small: "https://img.youtube.com/vi/none/default.jpg",
