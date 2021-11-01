@@ -27,6 +27,7 @@ module.exports = {
                 .setDescription(("```nim\n" + queue.map(track => { 
                     return `${queue.indexOf(track) + 1}: ${track.title}`
                 }).join("\n") + "\n```").slice(0, 1020))
+                .addField("Songs left in queue", `\`${queue.length}\``, true)
                 .addField("Loop status", "`" + LoopType[player.queue.loop.type].replace("Song", "Audio") + "`", true);
                 
             if (queue.length <= 0) embed.setDescription("```The queue is empty.```");
