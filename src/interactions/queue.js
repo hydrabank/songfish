@@ -18,14 +18,16 @@ module.exports = {
         try { 
             const player = await client.lavalink.manager.fetch(interaction);
             const queue = player.queue.tracks.slice(0, 5);
-
+            
             const embed = new MessageEmbed()
                 .setColor("AQUA")
                 .setTitle(`${interaction.guild.name}: Queue`)
                 .setFooter(`Songfish • Player: P-${player.node.conn.info.port}`, client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
                 .setTimestamp()
-                .setDescription(("```nim\n" + queue.map(track => `${queue.indexOf(track) + 1}: ${track.title}`).join("\n") + "\n```").slice(0, 1020))
-                .addField("Loop status", "`" + LoopType[player.queue.loop.type].replace("Song", "Audio") + "`");
+                .setDescription(("```nim\n" + queue.map(track => { 
+                    return `${queue.indexOf(track) + 1}: ${track.title}`
+                }).join("\n") + "\n```").slice(0, 1020))
+                .addField("Loop status", "`" + LoopType[player.queue.loop.type].replace("Song", "Audio") + "`", true);
                 
             if (queue.length <= 0) embed.setDescription("```The queue is empty.```");
             return interaction.editReply({ embeds: [embed] });

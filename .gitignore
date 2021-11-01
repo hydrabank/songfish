@@ -93,3 +93,6 @@ package-lock.json
 
 # Configuration
 config.js
+
+# Startup
+start.sh

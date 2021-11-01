@@ -46,6 +46,7 @@ module.exports = {
             
             if (track.isStream) embed.setDescription(`[${track.title}](${track.uri})\n\n${player.paused ? "⏸️" : "▶️"} ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n**Live** (listening for ${point})`);
             else embed.setDescription(`[${track.title}](${track.uri})\n\n${player.paused ? "⏸️" : "▶️"} ${createBar(track.length, player.position, { size: 17 })}\n\n${point}/${total}`);
+            if (track.isSpotify) embed.setDescription(`[${track.title}](${track.spotify.url})\n\n${player.paused ? "⏸️" : "▶️"} ${createBar(track.length, player.position, { size: 17 })}\n\n${point}/${total}`).setImage(thumbnail.null).setColor(track.spotify.colour).setThumbnail(track.spotify.thumbnail);
 
             return interaction.editReply({ embeds: [ embed ] });
         } catch (e) {
