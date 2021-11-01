@@ -125,7 +125,7 @@ module.exports = {
                     url: meta.URL
                 };
 
-                if (player.queue.current === new Song(track[0])) player.queue.current = thisTrack;
+                if (player.queue.current.identifier === thisTrack.identifier) player.queue.current = thisTrack;
                 const queueTrackIndex = player.queue.tracks.findIndex(f => f.identifier === new Song(track[0]).identifier);
                 const queueTrackLastIndex = player.queue.previous.findIndex(f => f.identifier === new Song(track[0]).identifier);
                 if (queueTrackIndex !== -1) player.queue.tracks[queueTrackIndex] = thisTrack;

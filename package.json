@@ -1,6 +1,6 @@
 {
   "name": "songfish",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An open-sourced music bot for Discord",
   "main": "src/index.js",
   "repository": "https://github.com/Dannnington/songfish.git",
