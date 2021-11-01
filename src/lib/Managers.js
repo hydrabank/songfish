@@ -16,6 +16,10 @@ class PlayerManager {
         let player;
         if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined || (await client.lavalink.getPlayer(interaction.guild.id)) === null) {
             player = await client.lavalink.createPlayer(interaction.guild.id);
+            player.errorExceptions = {
+                count: 0,
+                timestamp: Date.now()
+            };
             player.on("channelMove", async function (oldChannel, newChannel) {
                 const channel = interaction.guild.channels.cache.get(newChannel);
                 const me = await interaction.guild.members.fetch(client.user.id);
@@ -39,8 +43,18 @@ class PlayerManager {
                     err = true;
                 });
                 if (err == true) return;
-                
+
                 const channel = interaction.guild.channels.cache.get(interaction.channel.id);
+                player.errorExceptions.count++;
+                player.errorExceptions.timestamp = Date.now();
+                if (player.errorExceptions.count >= 15 && ((Date.now() - player.errorExceptions.timestamp) <= 900000)) {
+                    channel.send("**Too many errors have occurred in the past 15 minutes. The bot will now disconnect from the channel.**").catch(f => {
+                        null;
+                    });
+                    player.destroy();
+                    return player.disconnect();
+                }
+                
                 channel.send(`The song **${track.title}** is not available to play back for various reasons (like age restriction). Apologies for the inconveniences.`).catch(_ => {
                     null;
                 });
