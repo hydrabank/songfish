@@ -96,6 +96,7 @@ async function postCommands() {
 
     return true;
 };
+
 client.on("ready", function () {
     let status = { type: "LISTENING", content: "music! 🎵" };
     if (config.discord.status.type) status.type = config.discord.status.type;
