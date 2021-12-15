@@ -100,11 +100,11 @@ module.exports = {
             
             if (!interaction.guild.me.voice.channelId) {
                 player.connect(interaction.member.voice.channelId);
-                await interaction.guild.me.voice.setDeaf(true);
+                if (!interaction.guild.me.voice.deaf) await interaction.guild.me.voice.setDeaf(true);
             };
             if (interaction.guild.me.voice.channelId && !player.connected) {
                 player.connect(interaction.member.voice.channelId);
-                await interaction.guild.me.voice.setDeaf(true);
+                if (!interaction.guild.me.voice.deaf) await interaction.guild.me.voice.setDeaf(true);
             };
             
             if (vcType === "GUILD_STAGE_VOICE" && interaction.guild.me.voice.suppress) await interaction.guild.me.voice.setSuppressed(false);
@@ -149,7 +149,10 @@ module.exports = {
                 if (queueTrackLastIndex !== -1) player.queue.previous[queueTrackLastIndex] = thisTrack;
             };
         } catch (e) {
-            if (e.code === 50013 && e.httpStatus === 403) return interaction.editReply("I need the following permissions to join stages: `Manage Channels`, `Mute Members`, `Move Members`. Otherwise, I cannot join stages.");
+            if (e.code === 50013 && e.httpStatus === 403 && vcType === "GUILD_STAGE_VOICE") return interaction.editReply("I need the following permissions to join stages: `Manage Channels`, `Mute Members`, `Move Members`. Otherwise, I cannot join stages.");
+            if (e.code === 50013 && e.httpStatus === 403) {
+                return interaction.editReply("The bot had issues trying to reconnect to the voice channel. If the bot spontaneously stopped itself whilst playing audio and the queue was reset, this is probably because of the bot restarting. Try disconnecting the bot manually, then reconnecting it again.")
+            };
             err = true;
             const chalk = require("chalk");
             console.log(`${chalk.red("ERROR")} || Songfish was able to successfully handle an exception (${new Date().toUTCString()}). Here is a debug stack trace in the case that you'd like to see the error:\n${e.stack}`);
