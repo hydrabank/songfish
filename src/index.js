@@ -91,7 +91,7 @@ for (const f of cmdDir) {
 async function postCommands() {
     const api = new API.REST({ version: "9" }).setToken(config.discord.clientToken);
     
-    if (config.testing === true) api.put(Routes.applicationGuildCommands(config.discord.clientID, "895014174969708575"), { body: cmdMetadata });
+    if (config.testing === true) api.put(Routes.applicationGuildCommands(config.discord.clientID, "905257442626113547"), { body: cmdMetadata });
     else await api.put(Routes.applicationCommands(config.discord.clientID), { body: cmdMetadata });
 
     return true;
