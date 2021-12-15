@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js-light");
-const { LoopType } = require("@lavaclient/queue/dist/Queue");
 
 module.exports = {
     metadata: new SlashCommandBuilder()
@@ -14,6 +13,7 @@ module.exports = {
                 .addChoice("Audio", "Song")
                 .addChoice("Disable", "None")),
     run: async (client, interaction) => {
+        const { LoopType } = require("@lavaclient/queue/dist/Queue");
         await interaction.deferReply();
 
         const mode = interaction.options.getString("mode");
