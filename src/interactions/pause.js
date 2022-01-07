@@ -22,7 +22,6 @@ module.exports = {
 
         try { 
             const player = await client.lavalink.manager.fetch(interaction);
-            
             if (player.paused) return interaction.editReply("The audio is already paused!");
             if (!player.track) return interaction.editReply("There isn't an audio playing right now!");
             player.pause();
