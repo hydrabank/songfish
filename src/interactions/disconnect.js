@@ -22,6 +22,7 @@ module.exports = {
 
         try { 
             const player = await client.lavalink.manager.fetch(interaction);
+            player.queue.clear();
             player.disconnect();
             
             await client.lavalink.destroyPlayer(interaction.guild.id);
