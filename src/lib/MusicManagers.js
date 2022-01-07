@@ -1,3 +1,7 @@
+/**
+ * Manage Lavalink player connections and the cluster in general
+ * @param {object} client The Discord.js client instance
+ */
 class PlayerManager {
     /**
      * Manage Lavalink player connections and the cluster in general
@@ -72,6 +76,10 @@ class PlayerManager {
     };
 };
 
+/**
+ * Manage YouTube metadata, information, and statistics
+ * @param {object} client The Discord.js client instance 
+ */
 class YouTubeManager {
     /**
      * Manage YouTube metadata, information, and statistics

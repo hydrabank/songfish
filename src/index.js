@@ -23,7 +23,7 @@ const { Client, Intents, MessageEmbed, Options } = require("discord.js-light");
 const { Routes } = require("discord-api-types/v9"); 
 const { Cluster } = require("lavaclient");
 const { load } = require("@lavaclient/spotify");
-const { PlayerManager, YouTubeManager } = require("./lib/Managers");
+const { PlayerManager, YouTubeManager } = require("./lib/MusicManagers");
 
 require("@lavaclient/queue/register");
 
