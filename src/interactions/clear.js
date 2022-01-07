@@ -25,6 +25,7 @@ module.exports = {
             const player = await client.lavalink.manager.fetch(interaction);
             await player.queue.setLoop(LoopType.None);
             player.queue.tracks = [];
+            player.queue.clear();
         } catch (e) {
             err = true;
             const chalk = require("chalk");
