@@ -10,6 +10,7 @@ An open-sourced music-focused bot for Discord. Its' public instance is an invite
 - [x] List queue command  
 - [ ] DJ permissions
 - [ ] Effects
+- [ ] i18n (localization)
 - [x] Invite-only functionality
 - [x] Playlists
 - [x] Streams
@@ -21,6 +22,8 @@ Special thanks to 'v' (AnAbomination on NameMC) for creating the profile photo a
 
 A list of key people in Songfish will be provided below:
 
+### Core
+
 - [PunchyChain](https://twitter.com/PunchyChain): Proctor of the public bot along with myself
 
 - AnAbomination: Profile photo creator
@@ -29,4 +32,7 @@ A list of key people in Songfish will be provided below:
 
 - [Bren](https://github.com/smatman): The sole person who inspired me to create this bot. His bird, Edward (Eddie), is the namesake of the VIP instance of Songfish (Edward's Tunes)!
 
-- All the other people who helped out with testing, ideas, and participation in the Songfish beta
+### Translators
+
+- [Neverland](https://github.com/ItsNeverLand): pt-PT (Portugal Portugese)
+- [Myself (Dannington)](https://danny.works): Original/en-GB (UK English), fr-FR (French), and fr-CA (Canadian/Quebecois French)
