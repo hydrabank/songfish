@@ -34,5 +34,5 @@ A list of key people in Songfish will be provided below:
 
 ### Translators
 
-- [NeverLand](https://github.com/ItsNeverLand): pt-PT (Portugal Portugese)
+- [NeverLand](https://github.com/ItsNeverLand): pt-PT (Portugal Portuguese)
 - [Myself (Dannington)](https://danny.works): Original/en-GB (UK English), fr-FR (French), and fr-CA (Canadian/Quebecois French)
