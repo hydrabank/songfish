@@ -19,7 +19,8 @@ const API = require("@discordjs/rest");
 const config = require("../config.js");
 const fs = require("fs");
 const path = require("path");
-const { Client, Intents, MessageEmbed, Options } = require("discord.js-light");
+const { Options } = require("discord.js-light");
+const { Client, Intents } = require("discord.js");
 const { Routes } = require("discord-api-types/v9"); 
 const { Cluster } = require("lavaclient");
 const { load } = require("@lavaclient/spotify");
@@ -36,7 +37,7 @@ if (config.spotify.client.secret) load({
     loaders: config.spotify.loaders
 });
 
-const client = new Client({ intents: [Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
+var client = new Client({ intents: [Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
     makeCache: Options.cacheWithLimits({
         ApplicationCommandManager: 0,
         BaseGuildEmojiManager: 0, 
@@ -60,6 +61,7 @@ const client = new Client({ intents: [Intents.FLAGS.DIRECT_MESSAGES, Intents.FLA
         VoiceStateManager: Infinity
     })
 });
+
 
 client.db = new Keyv(config.databases.url, { namespace: config.databases.namespace });
 client.db.on("error", (e) => console.error(`${chalk.red(`DB ERR `)} || ${e}`));
@@ -110,7 +112,7 @@ client.on("ready", function () {
 
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
-    
+
     const authorized = await client.db.get(`${interaction.guild.id}.authorized`);
     if (!authorized && interaction.commandName !== "invitemanager") return interaction.reply("This server is not authorized to use Songfish. Please apply for access at https://songfish.danny.works.");
 
