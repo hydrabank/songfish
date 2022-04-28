@@ -8,7 +8,9 @@ module.exports = {
                 "de-DE": "Du musst in einem Sprachkanal sein um diesen Befehl zu nutzen.",
                 "ar-SA": "يجب أن تكون في روم صوتي لاستخدام هذا الأمر.",
                 "en-shooken": "Wendy says that you need to be in a voice channel to use this command!! 𓆏",
-				"pt-PT": "Tens de estar num canal de voz para utilizar este comando."
+		"pt-PT": "Tens de estar num canal de voz para utilizar este comando.",
+		"tr-TR": "Bu komudu kullanabilmek için bir ses kanalında olman gerek."
+
             },
             notPlayingAudio: {
                 "en-GB": "I'm playing any audio in a voice channel.",
@@ -16,7 +18,8 @@ module.exports = {
                 "de-DE": "Ich spiele momentan keine Musik in einem Sprachkanal.",
                 "ar-SA": "لا أصدق أصوات صوتية في روم صوتي حاليا.",
                 "en-shooken": "wendy says that she isn't playing any audio in a voice channel right now. 𓆏",
-				"pt-PT": "Não estou a tocar qualquer áudio em qualquer canal de voz"
+		"pt-PT": "Não estou a tocar qualquer áudio em qualquer canal de voz",
+		"tr-TR": "Şuanda hiçbir ses kanalında müzik çalmıyorum."
             },
             userNotInBotChannel: {
                 "en-GB": "You must be in the bot's voice channel to use this command.",
@@ -24,7 +27,8 @@ module.exports = {
                 "de-DE": "Du musst im Sprachkanal des Bots sein um diesen Befehl zu nutzen.",
                 "ar-SA": "يجب أن تكون في روم صوتي للبوت لاستخدام هذا الأمر.",
                 "en-shooken": "join my fucking voice channel. 𓆏",
-				"pt-PT": "Tens de estar no canal de voz do bot para utilizar este comando."
+		"pt-PT": "Tens de estar no canal de voz do bot para utilizar este comando.",
+		"tr-TR": "Bu komudu kullanabilmek için botun ses kanalında olman gerek."
             },
             noPermission: {
                 "en-GB": "You do not have permission to use this command.",
@@ -32,7 +36,8 @@ module.exports = {
                 "de-DE": "Du hast keine Berechtigung um diesen Befehl zu nutzen.",
                 "ar-SA": "ليس لديك صلاحية لاستخدام هذا الأمر.",
                 "en-shooken": "no permission ratio bozo",
-				"pt-PT": "Não tens permissão para utilizar este comando."
+		"pt-PT": "Não tens permissão para utilizar este comando.",
+		"tr-TR": "Bu komudu kullanmak için olan gerekli iznin yok."
             },
 
         },
@@ -42,7 +47,9 @@ module.exports = {
                 "fr-FR": "Une erreur est survenue lors de la tentative de vider la file d'attente. Réessayez plus tard.",
                 "de-DE": "Ein Fehler ist beim Versuch, die Warteschlange zu leeren, aufgetreten. Versuche es später noch einmal.",
                 "ar-SA": "حدث خطأ أثناء محاولة إزالة القائمة. أعد المحاولة لاحقاً.",
-				"pt-PT": "Um erro ocorreu enquanto limpava a fila. Tenta de novo mais tarde."
+	        "pt-PT": "Um erro ocorreu enquanto limpava a fila. Tenta de novo mais tarde.",
+		"tr-TR": "Sırayı silmeye çalışırken bir hata oluştu. Daha sonra tekrar dene."
+
             },
             success: {
                 "en-GB": "🗑️ Removed all songs from the queue",
@@ -50,7 +57,8 @@ module.exports = {
                 "de-DE": "🗑️ Entfernt alle Songs aus der Warteschlange.",
                 "ar-SA": "🗑️ أزالت كل الأغاني من القائمة",
                 "en-shooken": "🗑️ wendy put everything in the trash.",
-				"pt-PT": "🗑 Removi todas as músicas da fila."
+		"pt-PT": "🗑 Removi todas as músicas da fila.",
+		"tr-TR": "🗑️ Tüm sıradan silindi."
             }
         },
         "disconnect": {
@@ -59,14 +67,16 @@ module.exports = {
                 "fr-FR": "Une erreur est survenue lors de la tentative de déconnecter le bot. Réessayez plus tard.",
                 "de-DE": "Ein Fehler ist beim Versuch, den Bot zu trennen, aufgetreten. Versuche es später noch einmal.",
                 "ar-SA": "حدث خطأ أثناء محاولة إفصل البوت من الروم. أعد المحاولة لاحقاً.",
-				"pt-pt": "Um erro ocorreu na tentativa de desconectar o bot. Tenta de novo mais tarde."
+		"pt-pt": "Um erro ocorreu na tentativa de desconectar o bot. Tenta de novo mais tarde.",
+		"tr-TR": "Botun bağlantısı kesilirken bir hata oluştu. Daha sonra tekrar dene."
             },
             success: {
                 "en-GB": "🔇 Disconnected from your voice channel",
                 "fr-FR": "🔇 Déconnecté du salon vocal",
                 "de-DE": "🔇 Verbindung zum Sprachkanal getrennt.",
                 "ar-SA": "🔇 أفصل من رومك الصوتي",
-				"pt-PT": "🔇 Desconectei do teu canal de voz"
+		"pt-PT": "🔇 Desconectei do teu canal de voz",
+		"tr-TR": "🔇 Ses kanalının bağlantısı kesildi"
             }
         },
         "join": {
@@ -75,14 +85,16 @@ module.exports = {
                 "fr-FR": "Une erreur est survenue lors de la tentative de rejoindre le salon vocal. Réessayez plus tard.",
                 "de-DE": "Ein Fehler ist beim Versuch, den Sprachkanal zu betreten, aufgetreten. Versuche es später noch einmal.",
                 "ar-SA": "حدث خطأ أثناء محاولة دخول الروم الصوتي. أعد المحاولة لاحقاً.",
-				"pt-PT": "Um erro ocorreu enquanto tentei entrar no ca nal de voz. Tenta de novo mais tarde."
+		"pt-PT": "Um erro ocorreu enquanto tentei entrar no ca nal de voz. Tenta de novo mais tarde.",
+		"tr-TR": "Ses kanalına katılmaya çalışırken bir hata oluştu. Daha sonra tekrar dene."
             },
             success: {
                 "en-GB": "🎙 Connected to <!--CV-->",
                 "fr-FR": "🎙 Connecté au salon vocal <!--CV-->",
                 "de-DE": "🎙 Verbindung zum Sprachkanal hergestellt (<!--CV-->).",
                 "ar-SA": "🎙 أنضم إلى <!--CV-->",
-				"pt-PT": "🎙 Conectado em <!--CV-->"
+		"pt-PT": "🎙 Conectado em <!--CV-->",
+		"tr-TR": "🎙 Ses kanalına bağlanıldı <!--CV-->"
             }
         },
         "loop": {
@@ -91,7 +103,8 @@ module.exports = {
                 "fr-FR": "Une erreur est survenue lors de la tentative de changer le mode boucle. Réessayez plus tard.",
                 "de-DE": "Ein Fehler ist beim Versuch, den Loop-Modus zu ändern, aufgetreten. Versuche es später noch einmal.",
                 "ar-SA": "حدث خطأ أثناء محاولة تغيير نمط الإعادة. أعد المحاولة لاحقاً.",
-				"pt-PT": "Um erro ocorreu enquanto tentei trocar o modo de repetição. Tenta novamente mais tarde."
+		"pt-PT": "Um erro ocorreu enquanto tentei trocar o modo de repetição. Tenta novamente mais tarde.",
+		
             },
             successSingle: {
                 "en-GB": "🔁 Looping the current song",
