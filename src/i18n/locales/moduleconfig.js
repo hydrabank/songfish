@@ -1,4 +1,5 @@
 // PORTUGUESE TRANSLATIONS BY: Marco Pisco <neverland@neverlandyt.com>
+// Turkish Translation By: Mustafa <mustafa@musti.codes>
 module.exports = {
     content: {
         "general": {
@@ -104,28 +105,31 @@ module.exports = {
                 "de-DE": "Ein Fehler ist beim Versuch, den Loop-Modus zu ändern, aufgetreten. Versuche es später noch einmal.",
                 "ar-SA": "حدث خطأ أثناء محاولة تغيير نمط الإعادة. أعد المحاولة لاحقاً.",
 		"pt-PT": "Um erro ocorreu enquanto tentei trocar o modo de repetição. Tenta novamente mais tarde.",
-		
+		"tr-TR": "Tekrar moduna geçilmeye çalışırken bir sorun oluştu. Daha sonra tekrar dene."
             },
             successSingle: {
                 "en-GB": "🔁 Looping the current song",
                 "fr-FR": "🔁 Boucle la musique en cours",
                 "de-DE": "🔁 Wiedergabe der aktuellen Song wird in einer Endlosschleife wiederholt.",
                 "ar-SA": "🔁 تكرار الأغنية الحالية",
-				"pt-PT": "🔁 A repetir a música que está a tocar"
+	        "pt-PT": "🔁 A repetir a música que está a tocar",
+		"tr-TR": "🔁 Anlık parça tekrarlanıyor"
             },
             successQueue: {
                 "en-GB": "🔁 Looping the queue (current songs and new songs added to the queue)",
                 "fr-FR": "🔁 Boucle la file d'attente (musiques en cours et nouvelles musiques ajoutées à la file d'attente)",
                 "de-DE": "🔁 Wiedergabe der Warteschlange wird in einer Endlosschleife wiederholt (aktuelle Songs und neue Songs werden in der Warteschlange hinzugefügt).",
                 "ar-SA": "🔁 تكرار القائمة (الأغاني الحالية والأغاني الجديدة التي تمت إضافتها إلى القائمة)",
-				"pt-PT": "🔁 A repetir a fila (músicas de momento e músicas novas adicionadas na fila)",
+		"pt-PT": "🔁 A repetir a fila (músicas de momento e músicas novas adicionadas na fila)",
+		"tr-TR": "🔁 Sıra tekrarlanıyor (şuandaki şarkılar ve gelecek yeni şarkılar)"
             },
             successStop: {
                 "en-GB": "🔁 Stopped looping, continuing with the queue",
                 "fr-FR": "🔁 Arrêt de la boucle, suite à la file d'attente",
                 "de-DE": "🔁 Wiedergabe der Warteschlange wird nicht mehr in einer Endlosschleife wiederholt.",
                 "ar-SA": "🔁 تم إيقاف التكرار، والمتابعة مع القائمة",
-				"pt-PT": "🔁 Parei de repetir, a continuar com a fila"
+		"pt-PT": "🔁 Parei de repetir, a continuar com a fila",
+		"tr-TR": "🔁 Tekrar durdu, sıraya devam ediliyor"
             }
         },
         "nowplaying": {
@@ -134,7 +138,8 @@ module.exports = {
                 "fr-FR": "En direct",
                 "de-DE": "Live",
                 "ar-SA": "على الإطلاق",
-				"pt-PT": "Em direto"
+		"pt-PT": "Em direto",
+		"tr-TR": "Canlı"
 				
             },
             WordListeningFor: {
@@ -142,14 +147,15 @@ module.exports = {
                 "fr-FR": "Écoute pour",
                 "de-DE": "Höre zu",
                 "ar-SA": "أنا أستمع ل",
-				"pt-PT": "A ouvir"
+		"pt-PT": "A ouvir",
+		"tr-TR": "Dinleniyor"
             },
             AuthorTitle: {
                 "en-GB": "Currently playing audio",
                 "fr-FR": "Musique en cours",
                 "de-DE": "Aktuell wird gespielt",
                 "ar-SA": "الأغنية الحالية",
-				"pt-PT": "A tocar",
+		"pt-PT": "Şu anda çalınıyor",
             },
             error: {
                 "en-GB-old": "Oops! Songfish fell into a snag. Songfish can't read metadata about certain audio due to copyright or an illegal character being present. Apologies for the inconvenience.",
@@ -157,7 +163,8 @@ module.exports = {
                 "fr-FR": "Une erreur est survenue. Réessayez.",
                 "de-DE": "Ein Fehler ist aufgetreten. Versuche es noch einmal.",
                 "ar-SA": "حدث خطأ. أعد المحاولة.",
-				"pt-PT": "Um erro ocorreu. Tenta novamente."
+		"pt-PT": "Um erro ocorreu. Tenta novamente.",
+		"tr-TR": "Bir hata oluştu. Yeniden dene."
             }
         },
         "pause": {
@@ -166,20 +173,23 @@ module.exports = {
                 "fr-FR": "Une erreur est survenue lors de la tentative de mettre en pause la musique en cours. Réessayez plus tard.",
                 "de-DE": "Ein Fehler ist beim Versuch, den aktuellen Song zu pausieren, aufgetreten. Versuche es später noch einmal.",
                 "ar-SA": "حدث خطأ أثناء محاولة إيقاف الأغنية الحالية. أعد المحاولة لاحقاً.",
-				"pt-PT": "Um erro ocorreu enquanto tentei parar a música. Tenta novamente mais tarde."
+		"pt-PT": "Um erro ocorreu enquanto tentei parar a música. Tenta novamente mais tarde.",
+		"tr-TR": "Şarkı durdurulmaya çalışırken bir hata oluştu. Daha sonra dene."
             },
             success: {
                 "en-GB": "⏸ Paused the current song",
                 "fr-FR": "⏸ Musique en cours mis en pause",
                 "de-DE": "⏸ Wiedergabe der aktuellen Song wurde pausiert.",
                 "ar-SA": "⏸ تم إيقاف الأغنية الحالية",
-				"pt-PT": "⏸ Parei a música"
+		"pt-PT": "⏸ Parei a música",
+		"tr-TR": "⏸ Şarkı durduruldu"
             },
             alreadyPaused: {
                 "en-GB": "The audio is already paused!",
                 "fr-FR": "La musique est déjà en pause !",
                 "de-DE": "Die Wiedergabe der aktuellen Song ist bereits pausiert!",
-				"pt-PT": "A música já está parada!"
+		"pt-PT": "A música já está parada!",
+		"tr-TR": "Ses hali hazırda duruyor!"
             }
         },
         "play": {
@@ -194,13 +204,15 @@ module.exports = {
                 "fr-FR": "Chansons restantes dans la file d'attente",
                 "de-DE": "Songs in der Warteschlange",
                 "ar-SA": "الأغاني المتبقية في القائمة",
-				"pt-PT": "Músicas restantes na fila",
+		"pt-PT": "Músicas restantes na fila",
+		"tr-TR": "Sıradaki parçalar"
             },
             WordLoopStatus: {
                 "en-GB": "Loop status",
                 "fr-FR": "Statut de la boucle",
                 "ar-SA": "حالة التكرار",
-				"pt-PT": "Estado de repetição"
+		"pt-PT": "Estado de repetição",
+		"tr-TR": "Tekrar durumu"
             }
         }
     }
