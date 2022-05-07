@@ -12,7 +12,6 @@ module.exports = {
         .addStringOption(o => o.setName("audio").setDescription("The playback URL or search term for the audio").setRequired(true)),
     run: async (client, interaction) => {
         await interaction.deferReply();
-        if (interaction.options.getString("audio").toLowerCase().includes("squishmallow")) return interaction.editReply("no shut up with your squishmallow shit stfu");
         let err;
         if (interaction.member.voice.channelId === null || interaction.member.voice.channelId === undefined) {
             return interaction.editReply("You must be in a voice channel in order to use this command.");
