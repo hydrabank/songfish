@@ -52,8 +52,8 @@ class PlayerManager {
                 });
                 if (err == true) return;
 
-                console.log(`${chalk.red("[ERROR]")} A track exception occurred: ${errMsg}`);
-                console.log(errMsg)
+                console.log(`${chalk.red("[ERROR]")} A track exception occurred: ${str}`);
+                console.log(errMsg);
 
                 const channel = interaction.guild.channels.cache.get(interaction.channel.id);
                 player.errorExceptions.count++;
