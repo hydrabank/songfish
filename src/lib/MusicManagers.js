@@ -45,11 +45,14 @@ class PlayerManager {
 
             player.on("trackException", async function (str) {
                 let err = false;
+                let errMsg = {};
                 const track = await client.lavalink.rest.decodeTrack(str).catch(f => {
-                    console.log(`${chalk.red("[ERROR]")} A track exception occurred: ${f}`);
+                    errMsg = f;
                     err = true;
                 });
                 if (err == true) return;
+
+                console.log(`${chalk.red("[ERROR]")} A track exception occurred: ${errMsg}`);
 
                 const channel = interaction.guild.channels.cache.get(interaction.channel.id);
                 player.errorExceptions.count++;
@@ -60,7 +63,7 @@ class PlayerManager {
                     });
                     player.destroy();
                     return player.disconnect();
-                }
+                };
 
                 channel.send(`The song **${track.title}** is not available to play back for various reasons (like age restriction). Apologies for the inconveniences.`).catch(_ => {
                     null;
