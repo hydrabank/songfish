@@ -44,10 +44,10 @@ class PlayerManager {
             });
 
             player.on("trackException", async function (str) {
-                let err;
+                let err = false;
                 const track = await client.lavalink.rest.decodeTrack(str).catch(f => {
+                    console.log(`${chalk.red("[ERROR]")} A track exception occurred: ${f}`);
                     err = true;
-                    console.log(`${chalk.red("[ERROR]")} A track exception occurred: ${f}`)
                 });
                 if (err == true) return;
 
