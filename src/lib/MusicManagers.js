@@ -1,3 +1,5 @@
+const chalk = require('chalk');
+
 /**
  * Manage Lavalink player connections and the cluster in general
  * @param {object} client The Discord.js client instance
@@ -45,6 +47,7 @@ class PlayerManager {
                 let err;
                 const track = await client.lavalink.rest.decodeTrack(str).catch(f => {
                     err = true;
+                    console.log(`${chalk.red("[ERROR]")} A track exception occurred: ${f}`)
                 });
                 if (err == true) return;
 
@@ -58,7 +61,7 @@ class PlayerManager {
                     player.destroy();
                     return player.disconnect();
                 }
-                
+
                 channel.send(`The song **${track.title}** is not available to play back for various reasons (like age restriction). Apologies for the inconveniences.`).catch(_ => {
                     null;
                 });
