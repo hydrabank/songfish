@@ -99,3 +99,6 @@ start.sh
 
 # Test fixtures
 *.test.*
+
+# Lavalink test files
+lavalink/
