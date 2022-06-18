@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { LocalizationManager } = require('../lib/StringManagers');
 
 module.exports = {
     metadata: new SlashCommandBuilder()
@@ -8,15 +9,17 @@ module.exports = {
             o.setName("operation")
                 .setDescription("Select an operation")
                 .setRequired(true)
-                .addChoice("Add", "add")
-                .addChoice("Remove", "remove"))
+                .addChoices(
+                    { name: "Remove", value: "remove" },
+                    { name: "Add", value: "add" }
+                ))
         .addStringOption(o =>
             o.setName("guild")
                 .setDescription("The ID of the guild to add or remove from the list of authorized guilds")
                 .setRequired(true)),
     run: async (client, interaction) => {
         await interaction.deferReply({ ephemeral: false });
-        if (!client.config.proctors.includes(interaction.member.id)) return interaction.editReply("You are not a proctor!");
+        if (!client.config.proctors.includes(interaction.member.id)) return interaction.editReply(LocalizationManager.localizeString("general", "noPermission", interaction.locale));
         const operation = interaction.options.getString("operation");
         const guild = interaction.options.getString("guild");
 

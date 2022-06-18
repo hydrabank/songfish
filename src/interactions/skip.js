@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js-light");
+const { LocalizationManager } = require('../lib/StringManagers');
 
 module.exports = {
     metadata: new SlashCommandBuilder()
@@ -8,19 +9,20 @@ module.exports = {
     run: async (client, interaction) => {
         await interaction.deferReply();
         let err;
+        
         if (interaction.member.voice.channelId === null || interaction.member.voice.channelId === undefined) {
-            return interaction.editReply("You must be in a voice channel in order to use this command.");
+            return interaction.editReply(LocalizationManager.localizeString("general", "userNotInVoiceChannel", interaction.locale));
         };
 
         if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined) {
-            return interaction.editReply("I am not currently playing audio in a voice channel!");
+            return interaction.editReply(LocalizationManager.localizeString("general", "notPlayingAudio", interaction.locale));
+        };
+        
+        if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
+            return interaction.editReply(LocalizationManager.localizeString("general", "userNotInBotChannel", interaction.locale));
         };
 
         const vcType = interaction.guild.channels.cache.get(interaction.member.voice.channelId).type;
-        
-        if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
-            return interaction.editReply("I am not currently playing audio in the voice channel that you are in!");
-        };
 
         try { 
             const player = await client.lavalink.manager.fetch(interaction);

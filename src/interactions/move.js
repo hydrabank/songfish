@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js-light");
+const { LocalizationManager } = require('../lib/StringManagers');
 
 require("array.prototype.move");
 

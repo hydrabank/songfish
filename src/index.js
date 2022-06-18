@@ -22,7 +22,7 @@ const path = require("path");
 const { Options } = require("discord.js-light");
 const { Client, Intents } = require("discord.js");
 const { Routes } = require("discord-api-types/v9"); 
-const { Cluster } = require("lavaclient");
+const { Cluster, Player } = require("lavaclient");
 const { load } = require("@lavaclient/spotify");
 const { PlayerManager, YouTubeManager } = require("./lib/MusicManagers");
 
@@ -93,7 +93,7 @@ for (const f of cmdDir) {
 async function postCommands() {
     const api = new API.REST({ version: "9" }).setToken(config.discord.clientToken);
     
-    if (config.testing === true) api.put(Routes.applicationGuildCommands(config.discord.clientID, "905257442626113547"), { body: cmdMetadata });
+    if (config.testing === true) api.put(Routes.applicationGuildCommands(config.discord.clientID, config.testingServerID), { body: cmdMetadata });
     else await api.put(Routes.applicationCommands(config.discord.clientID), { body: cmdMetadata });
 
     return true;
@@ -104,10 +104,10 @@ client.on("ready", function () {
     if (config.discord.status.type) status.type = config.discord.status.type;
     if (config.discord.status.content) status.content = config.discord.status.content;
     console.log(`${chalk.green("READY")} || ${client.user.tag} is ready (${new Date().toUTCString()})`);
+    console.log(`${chalk.blue("INFO")} || Invite Songfish using the following link: https://discord.com/api/oauth2/authorize?client_id=${config.discord.clientID}&permissions=8&scope=bot%20applications.commands`);
     client.user.setActivity(status.content, { type: status.type });
     lavalink.connect(client.user.id);
     client.lavalink = lavalink;
-    
 });
 
 client.on("interactionCreate", async (interaction) => {

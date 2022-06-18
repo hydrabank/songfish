@@ -33,6 +33,8 @@ A list of key people in Songfish will be provided below:
 - [Bren](https://github.com/smatman): The sole person who inspired me to create this bot. His bird, Edward (Eddie), is the namesake of the VIP instance of Songfish (Edward's Tunes)!
 
 ### Translators
+**NOTE: Translations are not complete, and current translations may be inaccurate or incorrect in grammar. Please help us out by providing native translations - thank you!**
 
 - [NeverLand](https://github.com/ItsNeverLand): pt-PT (Portugal Portuguese)
-- [Myself (Dannington)](https://danny.works): Original/en-GB (UK English), fr-FR (French), and fr-CA (Canadian/Quebecois French)
+- [Myself (Dannington)](https://danny.works): Original/en-GB (UK English), fr-FR (French)
+- [Mustafa](https://musti.codes/): tr-TR (Turkish)

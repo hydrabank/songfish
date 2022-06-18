@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js-light");
+const { LocalizationManager } = require('../lib/StringManagers');
 
 module.exports = {
     metadata: new SlashCommandBuilder()
@@ -14,7 +15,7 @@ module.exports = {
         let err;
 
         if (interaction.guild.me.voice.channelId === null || interaction.guild.me.voice.channelId === undefined) {
-            return interaction.editReply("I am not currently playing audio in a voice channel!");
+            return interaction.editReply(LocalizationManager.localizeString("general", "notPlayingAudio", interaction.locale));
         };
 
         try { 
