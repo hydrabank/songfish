@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js-light");
+const { LocalizationManager } = require('../lib/StringManagers');
 
 module.exports = {
     metadata: new SlashCommandBuilder()
@@ -9,18 +10,18 @@ module.exports = {
         await interaction.deferReply();
         let err;
         if (interaction.member.voice.channelId === null || interaction.member.voice.channelId === undefined) {
-            return interaction.editReply("You must be in a voice channel in order to use this command.");
+            return interaction.editReply(LocalizationManager.localizeString("general", "userNotInVoiceChannel", interaction.locale));
         };
 
         if (interaction.guild.me.voice.channelId !== null && interaction.guild.me.voice.channelId !== undefined) {
-            if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply("I am currently in a voice channel. Try again later.");
+            if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) return interaction.editReply(LocalizationManager.localizeString("general", "userNotInBotChannel", interaction.locale));
         };
 
         const vcType = interaction.guild.channels.cache.get(interaction.member.voice.channelId).type;
 
         try { 
                 const player = await client.lavalink.manager.fetch(interaction);
-                if (player.connected) return interaction.editReply("I'm already connected to your voice channel!");
+                if (player.connected) return interaction.editReply(LocalizationManager.localizeString("join", "alreadyConnected", interaction.locale));
                 await player.connect(interaction.member.voice.channelId);
 
                 if (vcType === "GUILD_STAGE_VOICE" && interaction.guild.me.voice.suppress) await interaction.guild.me.voice.setSuppressed(false);
@@ -34,9 +35,9 @@ module.exports = {
             err = true;
             const chalk = require("chalk");
             console.log(`${chalk.red("ERROR")} || Songfish was able to successfully handle an exception (${new Date().toUTCString()}). Here is a debug stack trace in the case that you'd like to see the error:\n${e.stack}`);
-            return interaction.editReply(`An exception occurred whilst attempting to connect the bot. Try again later.`);
+            return interaction.editReply(LocalizationManager.localizeString("join", "error", interaction.locale));
         };
-
-        return interaction.editReply(`☑️ Connected to <#${interaction.member.voice.channelId}>.`);
+        
+        return interaction.editReply(`${LocalizationManager.localizeString("join", "success", interaction.locale, `<#${interaction.member.voice.channelId}>`)}`);
     }
 };

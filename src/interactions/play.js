@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, Permissions } = require("discord.js-light");
 const { Song } = require("@lavaclient/queue/dist/Song");
 const { getData } = require("spotify-url-info");
+const { LocalizationManager } = require('../lib/StringManagers');
 
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
@@ -13,13 +14,14 @@ module.exports = {
     run: async (client, interaction) => {
         await interaction.deferReply();
         let err;
+        
         if (interaction.member.voice.channelId === null || interaction.member.voice.channelId === undefined) {
-            return interaction.editReply("You must be in a voice channel in order to use this command.");
+            return interaction.editReply(LocalizationManager.localizeString("general", "userNotInVoiceChannel", interaction.locale));
         };
 
         if (interaction.guild.me.voice.channelId !== null && interaction.guild.me.voice.channelId !== undefined) {
             if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
-                return interaction.editReply("You must be in the same voice channel as the bot in order to play audio!");
+                return interaction.editReply(LocalizationManager.localizeString("general", "userNotInBotChannel", interaction.locale));
             };
         };
 
