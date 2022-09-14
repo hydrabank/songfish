@@ -1,0 +1,33 @@
+{
+  "name": "songfish",
+  "version": "2.0.0",
+  "description": "An open-sourced music bot for Discord",
+  "main": "src/index.js",
+  "repository": "https://github.com/Dannnington/songfish.git",
+  "author": "Daniel Hyders <git@danny.works>",
+  "license": "GPL-3.0-or-later",
+  "private": false,
+  "dependencies": {
+    "@discordjs/builders": "0.15.0",
+    "@discordjs/collection": "0.7.0",
+    "@discordjs/rest": "0.5.0",
+    "@keyv/mongo": "2.1.6",
+    "@keyv/redis": "2.3.6",
+    "@lavaclient/queue": "2.0.6",
+    "@lavaclient/spotify": "3.0.0",
+    "array.prototype.move": "0.0.4",
+    "chalk": "^4.1.2",
+    "discord-api-types": "0.34.0",
+    "discord.js": "13.8.0",
+    "discord.js-light": "4.8.0",
+    "duration-pretty": "0.1.1",
+    "keyv": "4.3.0",
+    "lavaclient": "4.0.8",
+    "node-fetch": "^3.0.0",
+    "spotify-url-info": "3.1.2",
+    "string-progress": "1.8.9"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  }
+}
