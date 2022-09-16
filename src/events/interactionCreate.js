@@ -1,4 +1,6 @@
 import chalk from "chalk";
+import { ActionRowBuilder } from "discord.js";
+import { metadata as accessApplicationButton } from "../interactions/buttons/applicationBegin";
 
 const evt = {
     name: 'interactionCreate',
@@ -6,6 +8,18 @@ const evt = {
         let key = "commandName";
         try {
             if (interaction.isChatInputCommand()) {
+                const applicationStatus = await ctx.DatabaseManagers.main.get(`${interaction.guild?.id}:accessStatus`);
+                
+                if (interaction.commandName !== "swissknife") {
+                    if ((!applicationStatus) || (typeof applicationStatus === "object" && applicationStatus.status !== "approved")) {
+                        return await interaction.reply({ content: "This guild does not have access to Songfish. If you have `Manage Server` permissions, you may click the button below to apply for access.", ephemeral: true, components: [
+                            new ActionRowBuilder().addComponents(
+                                accessApplicationButton.builder.setCustomId("applicationBegin")
+                            )
+                        ] });
+                    };
+                };
+
                 key = "commandName";
                 const cmd = ctx.CommandManager.getCommand(interaction.commandName);
                 if (cmd.type && cmd.type !== "CommandInteraction") return;

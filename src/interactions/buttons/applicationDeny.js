@@ -22,11 +22,14 @@ async function execute(ctx, interaction) {
     else {
         const guildStatus = await ctx.DatabaseManagers.main.get(`${applicationStatus.guildId}:accessStatus`);
         if (guildStatus.status !== "pending") return await interaction.editReply({ content: "This application is not pending. Either manually add or remove application status using the Swiss Knife.", ephemeral: true });
+        const user = await ctx.client.users.fetch(guildStatus.requester.id).catch(() => null);
         guildStatus.status = "denied";
         guildStatus.timestamp = time(Date.now());
         
         await ctx.DatabaseManagers.main.set(`${applicationStatus.guildId}:accessStatus`, guildStatus);
         await ctx.DatabaseManagers.main.delete(`msg:${interaction.message?.id}:application`);
+
+        await user.send({ content: `**${applicationStatus.guildName}**'s application for access to Songfish has been **denied**. Feel free to submit a new application at any time.\n***Note: Misuse of this system will result in your server being blacklisted from Songfish***.` });
         
         await interaction.message?.delete();
 

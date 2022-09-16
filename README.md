@@ -1,6 +1,6 @@
 # Songfish 
 
-An open-sourced music-focused bot for Discord. Its' public instance is an invite-only Discord bot called Songfish. However, Songfish also has a more exclusive variant with a dedicated voice server, called Edward's Tunes.
+An open-sourced music-focused bot for Discord, written in Discord.js using Poru for communication
 
 ## To-do list
 - [x] Basic music playback (play, pause)
@@ -9,8 +9,8 @@ An open-sourced music-focused bot for Discord. Its' public instance is an invite
 - [x] Loop functionality
 - [x] List queue command  
 - [ ] DJ permissions
-- [ ] Effects
-- [ ] i18n (localization)
+- [x] Effects
+- [x] i18n (localization)
 - [x] Invite-only functionality
 - [x] Playlists
 - [x] Streams
@@ -32,7 +32,7 @@ A list of key people in Songfish will be provided below:
 
 - [Bren](https://github.com/smatman): The sole person who inspired me to create this bot. His bird, Edward (Eddie), is the namesake of the VIP instance of Songfish (Edward's Tunes)!
 
-### Translators
+### v2 Translators
 **NOTE: Translations are not complete, and current translations may be inaccurate or incorrect in grammar. Please help us out by providing native translations - thank you!**
 
 - [NeverLand](https://github.com/ItsNeverLand): pt-PT (Portugal Portuguese)

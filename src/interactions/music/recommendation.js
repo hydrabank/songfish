@@ -3,25 +3,21 @@ import { SlashCommand } from "../../schema/schemas";
 import TimeFormat from "../../lib/TimeFormat";
 
 const metadata = {
-    name: "play",
+    name: "recommendation",
     type: "CommandInteraction",
     proctorOnly: false,
     dmCommand: false,
     builder: new SlashCommandBuilder()
-        .setDescription("Add a song to the Songfish incumbent queue of tracks.")
-        .addStringOption(option => 
-            option.setName("query")
-                .setDescription("The query term for the audio to play (YouTube, Spotify, or remote file; search term or URL)")
-                .setRequired(true)
-        ),
+        .setDescription("Add a random song from Songfish's recommendations into the queue."),
     i18n: {
         "default": {
             notInMyVoiceChannel: "🤔 You must be in my voice channel to use this command!",
             voiceChannelRequired: "🤔 You must be in a voice channel to use this command!",
-            noMatches: "🚫 No matches were found for your query",
-            loadFailed: "🚫 Failed to load results for your query",
+            noMatches: "🚫 An error occurred whilst trying to pick a random song. Please try again later.",
+            loadFailed: "🚫 An error occurred whilst trying to pick a random song. Please try again later.",
             playlistQueued: "🎶 Queued playlist **%s** (**`%a`** tracks)",
-            songQueued: "🎶 Queued track **%s** (**%t**)"
+            songQueued: "🎶 I've picked a random recommendation for you - **%s** (**%t**). Take a listen! 😁",
+            improperType: "🚫 Your Songfish administrator has incorrectly configured the recommendation playlist. Please contact them to fix this issue."
         }
     }
 };
@@ -31,7 +27,7 @@ async function execute(ctx, interaction) {
     if (!interaction.member?.voice?.channel && !interaction.guild?.members?.voice?.channel) {
         return await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].voiceChannelRequired);
     };
-    const query = interaction.options.getString("query");
+    const query = "https://open.spotify.com/playlist/4xeuX9cAUJOpQeJnlDcGCL?si=4542c9f1239b4e3c";
     const player = await ctx.PoruManager.fetchPlayer(interaction.guildId, interaction.channel.id, interaction.member.voice?.channel?.id);
     const res = await ctx.PoruManager.poruInstance.resolve(query);
 
@@ -42,24 +38,17 @@ async function execute(ctx, interaction) {
     };
 
     if (res.loadType === "PLAYLIST_LOADED") {
-        for (const track of res.tracks) {
-          track.info.requester = interaction.user;
-          await player.queue.add(track);
-        };
-
-        if (!player.isPlaying && !player.isPaused) player.play();
-    
-        await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].playlistQueued.replace("%s", res.playlistInfo.name).replace("%a", res.tracks.length));
-      } else {
-        const track = res.tracks[0];
+        let track = res.tracks[Math.floor(Math.random() * res.tracks.length)];
         track.info.requester = interaction.user;
 
         let formattedDuration = TimeFormat.formatLength(track.info.length / 1000);
 
         await player.queue.add(track);
         if (!player.isPlaying && !player.isPaused) player.play();
-
+    
         await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].songQueued.replace("%s", track.info.title).replace("%t", track.info.isStream ? "LIVE" : formattedDuration));
+      } else {
+        await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].improperType);
     };
 };
 
