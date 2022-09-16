@@ -1,5 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../../schema/schemas";
+import { meta as manifest } from "../../../config.js";
 
 const metadata = {
     name: "loop",
@@ -7,7 +8,7 @@ const metadata = {
     proctorOnly: false,
     dmCommand: false,
     builder: new SlashCommandBuilder()
-        .setDescription("Configure Songfish's loop modes (current track or entire queue)")
+        .setDescription(`Configure ${manifest.displayName}'s loop modes (current track or entire queue)`)
         .addStringOption(opt => 
             opt.setName("mode")
                 .setDescription("Select a mode . Choose an option, or leave blank to disable.")

@@ -1,6 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../../schema/schemas";
 import TimeFormat from "../../lib/TimeFormat";
+import { meta as manifest } from "../../../config.js";
 
 const metadata = {
     name: "play",
@@ -8,7 +9,7 @@ const metadata = {
     proctorOnly: false,
     dmCommand: false,
     builder: new SlashCommandBuilder()
-        .setDescription("Add a song to the Songfish incumbent queue of tracks.")
+        .setDescription(`Add a song to the ${manifest.displayName} incumbent queue of tracks.`)
         .addStringOption(option => 
             option.setName("query")
                 .setDescription("The query term for the audio to play (YouTube, Spotify, or remote file; search term or URL)")

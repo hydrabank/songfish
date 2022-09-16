@@ -1,4 +1,5 @@
 import { ActionRowBuilder, CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { meta as manifest } from "../../../config.js";
 
 const metadata = {
     name: "join",
@@ -6,7 +7,7 @@ const metadata = {
     proctorOnly: false,
     dmCommand: false,
     builder: new SlashCommandBuilder()
-        .setDescription("Requests Songfish to join the current user's voice channel."),
+        .setDescription(`Requests ${manifest.displayName} to join the current user's voice channel.`),
     i18n: {
         "default": {
             voiceChannelRequired: "🤔 You must be in a voice channel to invite me to join you!",

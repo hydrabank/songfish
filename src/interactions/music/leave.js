@@ -1,5 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../../schema/schemas";
+import { meta as manifest } from "../../../config.js";
 
 const metadata = {
     name: "leave",
@@ -7,7 +8,7 @@ const metadata = {
     proctorOnly: false,
     dmCommand: false,
     builder: new SlashCommandBuilder()
-        .setDescription("Remove Songfish from the current voice channel."),
+        .setDescription(`Remove ${manifest.displayName} from the current voice channel.`),
     i18n: {
         "default": {
             voiceChannelRequired: "🤔 You must be in my voice channel to remove me from it!",
