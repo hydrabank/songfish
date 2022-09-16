@@ -1,6 +1,8 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../../schema/schemas";
 import TimeFormat from "../../lib/TimeFormat";
+import { meta as manifest } from "../../../config.js";
+
 
 const metadata = {
     name: "recommendation",
@@ -8,7 +10,7 @@ const metadata = {
     proctorOnly: false,
     dmCommand: false,
     builder: new SlashCommandBuilder()
-        .setDescription("Add a random song from Songfish's recommendations into the queue."),
+        .setDescription(`Add a random song from ${manifest.displayName}'s recommendations into the queue.`),
     i18n: {
         "default": {
             notInMyVoiceChannel: "🤔 You must be in my voice channel to use this command!",
