@@ -1,10 +1,14 @@
 {
-  "name": "songfish",
+  "name": "fish-sdk",
+  "meta": {
+    "name": "Songfish",
+    "description": "A Lavalink-based Discord music bot. Open-source and built with versatility in mind."
+  },
   "version": "3.0.0",
-  "description": "An open-sourced music bot for Discord",
+  "description": "The official source-available SDK for the Fish music bots.",
   "main": "src/index.js",
-  "repository": "https://github.com/Dannnington/songfish.git",
-  "author": "Daniel Hyders <git@danny.works>",
+  "repository": "https://github.com/hydrabank/songfish.git",
+  "author": "Dani Hyders <git@danny.works>",
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@babel/cli": "^7.18.10",
