@@ -1,5 +1,6 @@
 import { ButtonBuilder, ButtonStyle, time } from "discord.js";
 import { metadata as accessApplicationModal } from "../modals/accessApplicationModal";
+import { meta as manifest } from "../../../config.js";
 
 const metadata = {
     name: "applicationDeny",
@@ -29,7 +30,7 @@ async function execute(ctx, interaction) {
         await ctx.DatabaseManagers.main.set(`${applicationStatus.guildId}:accessStatus`, guildStatus);
         await ctx.DatabaseManagers.main.delete(`msg:${interaction.message?.id}:application`);
 
-        await user.send({ content: `**${applicationStatus.guildName}**'s application for access to Songfish has been **denied**. Feel free to submit a new application at any time.\n***Note: Misuse of this system will result in your server being blacklisted from Songfish***.` });
+        await user.send({ content: `**${applicationStatus.guildName}**'s application for access to ${manifest.displayName} has been **denied**. Feel free to submit a new application at any time.\n***Note: Misuse of this system will result in your server being blacklisted from ${manifest.displayName}***.` });
         
         await interaction.message?.delete();
 

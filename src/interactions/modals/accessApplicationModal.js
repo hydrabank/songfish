@@ -1,13 +1,13 @@
 import { ActionRowBuilder, time, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import { metadata as applicationAccept } from "../buttons/applicationAccept";
 import { metadata as applicationDeny } from "../buttons/applicationDeny";
+import { meta as manifest } from "../../../config.js";
 
 let components = {
     first: new ActionRowBuilder().addComponents(
         new TextInputBuilder()
             .setCustomId("accessReason")
-            //.setLabel("What is your reason for requesting access to Songfish?")
-            .setLabel("Why do you want to use Songfish?")
+            .setLabel(`Why do you want to use ${manifest.displayName}?`)
             .setPlaceholder("Enter your reason here")
             .setStyle(TextInputStyle.Paragraph)
             .setMinLength(50)
@@ -17,7 +17,6 @@ let components = {
     second: new ActionRowBuilder().addComponents(
         new TextInputBuilder()
             .setCustomId("accessOften")
-            //.setLabel("How often do you use music integrations on Discord?")
             .setLabel("Do you often use Discord music bots?")
             .setPlaceholder("One-character answer (Y/n)")
             .setMinLength(1)
@@ -85,7 +84,7 @@ async function execute(ctx, interaction) {
     } else if (applicationStatus.status === "approved") {
         let timestamp = applicationStatus.timestamp;
         let user = applicationStatus.requester;
-        await interaction.editReply(`An application submitted by **${user.tag}** was approved **${timestamp}**. Enjoy your access to Songfish!`);
+        await interaction.editReply(`An application submitted by **${user.tag}** was approved **${timestamp}**. Enjoy your access to ${manifest.displayName}!`);
     };
 };
 
