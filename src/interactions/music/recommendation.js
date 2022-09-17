@@ -18,7 +18,7 @@ const metadata = {
             noMatches: "🚫 An error occurred whilst trying to pick a random song. Please try again later.",
             loadFailed: "🚫 An error occurred whilst trying to pick a random song. Please try again later.",
             playlistQueued: "🎶 Queued playlist **%s** (**`%a`** tracks)",
-            songQueued: "🎶 I've picked a random recommendation for you - **%s** (**%t**). Take a listen! 😁",
+            songQueued: "🎶 I've picked a random recommendation for you - **%s** (**%t**) %a. Take a listen! 😁",
             improperType: "🚫 Your Songfish administrator has incorrectly configured the recommendation playlist. Please contact them to fix this issue."
         }
     }
@@ -48,7 +48,7 @@ async function execute(ctx, interaction) {
         await player.queue.add(track);
         if (!player.isPlaying && !player.isPaused) player.play();
     
-        await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].songQueued.replace("%s", track.info.title).replace("%t", track.info.isStream ? "LIVE" : formattedDuration));
+        await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].songQueued.replace("%s", track.info.title).replace("%t", track.info.isStream ? "LIVE" : formattedDuration).replace("%a", "by **" + track.info.author + "**"));
       } else {
         await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].improperType);
     };
