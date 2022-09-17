@@ -4,7 +4,7 @@
     "name": "Songfish",
     "description": "A Lavalink-based Discord music bot. Open-source and built with versatility in mind."
   },
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "The official source-available SDK for the Fish music bots.",
   "main": "src/index.js",
   "repository": "https://github.com/hydrabank/songfish.git",
@@ -27,7 +27,7 @@
     "i18next": "^21.8.16",
     "keyv": "^4.3.3",
     "mocha": "^10.0.0",
-    "poru": "^3.0.1",
+    "poru": "3.2.0",
     "spotilink": "^1.4.7"
   },
   "scripts": {

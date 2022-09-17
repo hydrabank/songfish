@@ -52,12 +52,13 @@ async function execute(ctx, interaction) {
         if (mode === "track") {
             friendlyQueueType = "Track";
             queueEmoji = "🔂";
-            await player.TrackRepeat();
+            
+            player.setLoop("track".toUpperCase());
         } else if (mode === "queue") {
             friendlyQueueType = "Queue";
-            await player.QueueRepeat();
+            player.setLoop("queue".toUpperCase());
         } else {
-            await player.DisableRepeat();
+            player.setLoop("none".toUpperCase());
         };
 
         await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].loopSet.replace("%s", friendlyQueueType).replace("%e", queueEmoji));
