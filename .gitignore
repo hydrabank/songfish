@@ -102,3 +102,9 @@ start.sh
 
 # Lavalink test files
 lavalink/
+
+# Dist files
+dist/
+
+# Yarn
+.yarn/
