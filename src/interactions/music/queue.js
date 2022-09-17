@@ -57,7 +57,7 @@ async function execute(ctx, interaction) {
             },
             {
                 name: "Loop mode",
-                value: player.loop == 0 ? "`Disabled`" : (player.loop == 1 ? "`Track`" : "`Queue`"),
+                value: player.loop == "NONE" ? "`Disabled`" : (player.loop == "TRACK" ? "`Track`" : "`Queue`"),
                 inline: true
             }
         ])
