@@ -1,6 +1,6 @@
-# Songfish 
+# Songfish
 
-An open-sourced music-focused bot for Discord, written in Discord.js using Poru for communication
+An open-sourced music-focused bot for Discord, written in Discord.js using Poru (a Lavalink library) for music playback. Songfish is the reference implementation for the Fish SDK, a Discord bot framework for 
 
 ## To-do list
 - [x] Basic music playback (play, pause)
@@ -24,11 +24,13 @@ A list of key people in Songfish will be provided below:
 
 ### Core
 
-- [PunchyChain](https://twitter.com/PunchyChain): Proctor of the public bot along with myself
+- [Dani](https://danny.works): Me! I made Songfish and maintain it, along with the Fish SDK.
 
-- AnAbomination: Profile photo creator
+- [WiG sNaTcHeD](https://twitter.com/DrWiggie): The other administrator for Songfish's main instance.
 
-- [Shooken](https://twitter.com/shooken64): Helped out with a lot of the ideas and testing
+- AnAbomination: Drew the profile photo and icon for Songfish!
+
+- [Shooken](https://twitter.com/shooken64): Helped out with many ideas, along with testing features of the bot.
 
 - [Bren](https://github.com/smatman): The sole person who inspired me to create this bot. His bird, Edward (Eddie), is the namesake of the VIP instance of Songfish (Edward's Tunes)!
 
