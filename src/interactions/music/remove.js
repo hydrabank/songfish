@@ -49,8 +49,7 @@ async function execute(ctx, interaction) {
             if (queuePos <= 0) return await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].pastQueue.replace("%s", player.queue.length));
             const queueSong = player.queue[queuePos - 1];
             player.queue.remove(queuePos - 1);
-            
-            console.log(player.queue)
+
             await interaction.editReply(metadata.i18n[`${metadata.i18n[interaction.locale] ? interaction.locale : "default"}`].remove.replace("%s", queueSong.info?.title));
         }
     };
