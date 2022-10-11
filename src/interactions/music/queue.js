@@ -42,7 +42,7 @@ async function execute(ctx, interaction) {
         let currentFormattedDuration = TimeFormat.formatLength(song.info.length / 1000);
 
         let queueTracksText = player.queue.slice(0, 10).map((track, index) => {
-            return `${index + 1}. [**${track.info.title}**](${track.info?.uri.slice(0, 32) + (track.info?.uri.length > 32 ? ".." : "" )}) (**${TimeFormat.formatLength(track.info.length / 1000)}**, <@${track.info?.requester.id}>)`
+            return `${index + 1}. [**${track.info.title.slice(0, 32) + (track.info?.title.length > 32 ? ".." : "" )}**](${track.info?.uri}) (**${TimeFormat.formatLength(track.info.length / 1000)}**, <@${track.info?.requester.id}>)`
         });
 
         const queueTemplate = new EmbedBuilder()
@@ -62,7 +62,7 @@ async function execute(ctx, interaction) {
             }
         ])
         .setThumbnail(interaction.guild?.iconURL({ size: 4096, dynamic: true }))
-        .setDescription(`Now playing: [**${song.info.title}**](${song.info?.uri.slice(0, 32) + (song.info?.uri.length > 32 ? ".." : "" )}) (**${currentFormattedDuration}**, <@${song.info?.requester.id}>) \n\n` + queueTracksText.join("\n"))
+        .setDescription(`Now playing: [**${song.info.title.slice(0, 32) + (song.info?.title.length > 32 ? ".." : "" )}**](${song.info?.uri}) (**${currentFormattedDuration}**, <@${song.info?.requester.id}>) \n\n` + queueTracksText.join("\n"))
         .setFooter({ text: `Current song requested by ${song.info.requester.tag}`, iconURL: song.info.requester.displayAvatarURL({ size: 4096, dynamic: true }), })
         .setTimestamp();
         

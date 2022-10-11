@@ -1,6 +1,6 @@
 # Songfish
 
-An open-sourced music-focused bot for Discord, written in Discord.js using Poru (a Lavalink library) for music playback. Songfish is the reference implementation for the Fish SDK, a Discord bot framework for 
+An open-sourced music-focused bot for Discord, written in Discord.js using Poru (a Lavalink library) for music playback. Songfish is the reference implementation for the Fish SDK, a Discord bot base built on Discord.js and Node.
 
 ## To-do list
 - [x] Basic music playback (play, pause)
