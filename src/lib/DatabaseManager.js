@@ -1,4 +1,8 @@
 import Keyv from "keyv";
+import chalk from "chalk";
+import LogManager from './LogManager';
+import os from "os";
+import { fetch } from "undici";
 
 export default class DatabaseManager {
     /**
@@ -15,6 +19,28 @@ export default class DatabaseManager {
         };
 
         this.database = new Keyv(this.options.connectionUri, { namespace: this.options.databaseName });
+
+        this.database.get("__lastConnected").then(async (lastConnected) => {
+            const ipf = await fetch("https://api.ipgeolocation.io/getip", {
+
+            }).then((res) => res.json()).catch((e) => {
+                LogManager.log(`Failed to fetch IP info: ${e}`, "error", "DatabaseManager");
+            });
+            LogManager.log(`${chalk.green["bold"]("Successfully")} connected to database`, "info", "DatabaseManager");
+            if (lastConnected) {
+                LogManager.log(`Last connected to ${chalk.bold(lastConnected?.hostname)} ${chalk.bold(`(${lastConnected.ip} @ ${new Date(lastConnected?.timestamp).toISOString()})`)}`, "info", "DatabaseManager");
+            } else {
+                LogManager.log(`Last connected to ${chalk.bold(os.hostname)} (${chalk.bold(`${ipf.ip} @ now`)})`, "info", "DatabaseManager");
+            };
+
+            this.database.set("__lastConnected", {
+                hostname: os.hostname(),
+                timestamp: new Date().toISOString(),
+                ip: ipf.ip || "(IP unknown)"
+            });
+        }).catch((e) => {
+            LogManager.log(`${chalk.red["bold"]("Failed")} connecting to database: ${e}`, "error", "DatabaseManager");
+        });
     };
     
     /**
